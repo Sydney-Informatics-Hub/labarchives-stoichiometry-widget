@@ -1,0 +1,121 @@
+<table border="0" cellpadding="1" cellspacing="1" height="100" style="font-family: Times;" width="930">
+                <thead>
+                                <tr>
+                                                <th scope="col" style="width: 35px;"><strong>Substance</strong></th>
+                                                <th scope="col" style="width: 8px;"><strong>Amount<br />
+                                                (mg)</strong></th>
+                                                <th scope="col" style="width: 8px;"><strong>FW<br />
+                                                (g/mol)</strong></th>
+                                                <th scope="col" style="width: 8px;"><strong>Moles<br />
+                                                (mmol)</strong></th>
+                                                <th scope="col" style="width: 5px;"><strong>Equiv.</strong></th>
+                                                <th scope="col" style="width: 8px;"><strong>Volume<br />
+                                                (uL)</strong></th>
+                                                <th scope="col" style="width: 5px;"><strong>Density<br />
+                                                (g/mL)</strong></th>
+                                                <th scope="col" style="width: 35px;"><strong>Comments</strong></th>
+                                </tr>
+                </thead>
+                <tbody>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance1" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount1_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw1_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles1_formula" size="8" type="text" value="(#{amount1_number}/#{fw1_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents1_number" size="5" type="text" value="1" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume1_formula" size="8" type="text" value="(#{amount1_number}/#{density1_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density1_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments1" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance2" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount2_number" size="8" type="text" value="" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw2_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles2_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents2_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents2_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume2_formula" size="8" type="text" value="(#{amount2_number}/#{density2_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density2_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments2" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance3" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount3_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw3_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles3_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents3_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents3_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume3_formula" size="8" type="text" value="(#{amount3_number}/#{density3_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density3_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments3" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance4" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount4_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw4_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles4_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents4_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents4_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume4_formula" size="8" type="text" value="(#{amount4_number}/#{density4_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density4_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments4" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance5" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount5_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw5_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles5_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents5_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents5_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume5_formula" size="8" type="text" value="(#{amount5_number}/#{density5_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density5_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments5" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance6" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount6_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw6_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles6_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents6_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents6_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume6_formula" size="8" type="text" value="(#{amount6_number}/#{density6_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density6_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments6" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance7" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount7_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw7_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles7_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents7_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents7_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume7_formula" size="8" type="text" value="(#{amount7_number}/#{density7_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density7_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments7" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance8" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount8_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw8_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles8_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents8_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents8_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume8_formula" size="8" type="text" value="(#{amount8_number}/#{density8_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density8_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments8" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance9" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount9_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw9_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles9_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents9_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents9_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume9_formula" size="8" type="text" value="(#{amount9_number}/#{density9_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density9_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments9" size="35" type="text" /></th>
+                                </tr>
+                                <tr>
+                                                <th scope="col" style="text-align: left; width: 35px;"><input name="substance10" size="35" type="text" /></th>
+                                                <td scope="col" style="text-align: right; width: 8px;"><input name="amount10_number" size="8" type="text" /></td>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="fw10_number" size="8" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="moles10_formula" size="8" type="text" value="(#{moles1_formula}*#{equivalents10_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents10_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right; width: 8px;"><input name="volume10_formula" size="8" type="text" value="(#{amount10_number}/#{density10_number}).toFixed(2)" /></th>
+                                                <th scope="col" style="text-align: right; width: 5px;"><input name="density10_number" size="5" type="text" /></th>
+                                                <th scope="col" style="text-align: right;"><input name="comments10" size="35" type="text" /></th>
+                                </tr>
+                </tbody>
+</table>
