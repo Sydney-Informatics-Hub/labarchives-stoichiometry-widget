@@ -41,9 +41,6 @@ my_widget_script =
         //By default it calls the parent_class's init.
 
         //TO DO write code specific to your form
-        console.log('Welcome to stoichiometry world today!')
-        console.log('Hello World  - q')
-
         this.parent_class.init(mode, json_data);
 
         if (mode.indexOf('view') > -1) {
@@ -66,9 +63,8 @@ my_widget_script =
         }
 
         var nFixed = 2;
-
+        /*
         $('#the_form input[name^=amount]').on('keyup change', function() {
-          console.log('Key up change on Amount cell')
           var tr = $(this).closest('tr');
           var equiv = $('input[name^=equivalents]', tr);
           if (equiv.length != 1)
@@ -81,7 +77,6 @@ my_widget_script =
         });
 
         $('#the_form input[name^=fw]').on('keyup change', function() {
-          console.log('Key up change on FW cell')
           var tr = $(this).closest('tr');
           var amount = $('input[name^=amount]', tr);
           var fw = $('input[name^=fw]', tr);
@@ -93,13 +88,51 @@ my_widget_script =
         });
 
         $('#the_form input[name^=fw]').on('change', function() {
-          console.log('Key up change on FW cell')
           var tr = $(this).closest('tr');
           var amount = $('input[name^=amount]', tr);
           var equiv = $('input[name^=equivalents]', tr);
           if (!equiv.val()) {
             amount.change();
           }
+        });
+        */
+
+        // Vijay changes 25 Mar
+
+        // if amount and FW is filled calculate moles
+        $('#the_form input[name^=fw]').on('blur', function() {
+          console.log('FW field on blur')
+
+          $content = $('#row1_amount').html();
+          if($content == '') {
+            // yes it is empty
+            console.log('yes it is empty')
+          }
+          else {
+            // no it is not empty
+            console.log('no it is not')
+            var tr = $(this).closest('tr');
+            var fw = $('input[name^=fw]', tr);
+            var amount = $('input[name^=amount]', tr);
+            var moles = $('input[name^=moles]', tr);
+            var moles_1 = amount.val() / fw.val()
+            console.log(moles_1)
+            moles.val(moles_1.toFixed(nFixed))
+          }
+        });
+
+        // Vijay changes 25 Mar
+
+        // If FW and moles is filled calculate amount
+        $('#the_form input[name^=moles]').on('blur', function() {
+          console.log('Moles field on blur')
+          var tr = $(this).closest('tr');
+          var fw = $('input[name^=fw]', tr);
+          var moles = $('input[name^=moles]', tr);
+          var amount = $('input[name^=amount]', tr);
+          amount_1 = fw.val() * moles.val()
+          amount.val(amount_1.toFixed(nFixed))
+          amount.val((moles.val() * fw.val()).toFixed(nFixed))
         });
 
         $('#the_form input[name^=equivalents]').on('keyup change', function() {
@@ -114,16 +147,6 @@ my_widget_script =
             fw.change();
           }
         });
-
-        $('#the_form input[name^=equivalents]').on('keyup change', function() {
-
-        });
-
-        document.getElementById('my_cell').onchange = function () {
-          console.log('reached some where')
-        }
-
-
       },
 
       to_json:function () {
@@ -169,7 +192,10 @@ my_widget_script =
         //typically called have a save
         //TO DO write code specific to your form
         return this.parent_class.reset_edited();
-      }
+      },
 
+      enable_records: function() {
+        console.log('Entering the enable_records function')
 
+      },
     }

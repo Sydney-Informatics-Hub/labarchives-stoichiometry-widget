@@ -1,23 +1,21 @@
-<style type="text/css">
-    table {
-        border-collapse: collapse;
-        border: 1px solid purple;;
-        cellpadding: 1px;
-        cellspacing: 1px;
-        width: 930px;
-        height: 100px;
-        font-family: Times;
-    }
+<style type="text/css">table {
+    border-collapse: collapse;
+    border: 3px solid purple;;
+    cellpadding: 1px;
+    cellspacing: 1px;
+    width: 930px;
+    height: 100px;
+    font-family: Times;
+}
 
-    input[type=text]:enabled {
-        background: #19aeff;
-    }
+input[type=text]:enabled {
+    background: #19aeff;
+}
 
-    input[type=text]:disabled {
-        background: #dddddd;
-    }
+input[type=text]:disabled {
+    background: #dddddd;
+}
 </style>
-
 <table id="T01">
     <thead>
     <tr>
@@ -37,17 +35,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr id = "R02">
-        <th scope="col" style="text-align: left; width: 35px;"><input name="substance1" size="35" type="text" /></th>
+    <tr class="initialRow">
+        <th scope="col" style="text-align: left; width: 35px;"><input maxlength="30" name="substance1" size="35" type="text" /></th>
         <td id="my_cell" scope="col" style="text-align: right; width: 8px;"><input name="amount1_number" size="8" type="text" /></td>
         <th scope="col" style="text-align: right; width: 8px;"><input name="fw1_number" size="8" type="text" /></th>
         <th scope="col" style="text-align: right; width: 8px;"><input name="moles1_formula" size="8" type="text" value="(#{amount1_number}/#{fw1_number}).toFixed(2)" /></th>
         <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents1_number" size="5" type="text" value="1" /></th>
         <th scope="col" style="text-align: right; width: 8px;"><input name="volume1_formula" size="8" type="text" value="(#{amount1_number}/#{density1_number}).toFixed(2)" /></th>
         <th scope="col" style="text-align: right; width: 5px;"><input name="density1_number" size="5" type="text" /></th>
-        <th scope="col" style="text-align: right;"><input name="comments1" size="35" type="text" /></th>
+        <th scope="col" style="text-align: right;"><input maxlength="100" name="comments1" size="35" type="text" /></th>
     </tr>
-    <tr>
+    <tr class="otherRow">
         <th scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" name="substance2" size="35" type="text" /></th>
         <td scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount2_number" size="8" type="text" value="" /></td>
         <th scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw2_number" size="8" type="text" /></th>
@@ -58,6 +56,5 @@
         <th scope="col" style="text-align: right;"><input disabled="disabled" name="comments2" size="35" type="text" /></th>
     </tr>
     </tbody>
-
 
 </table>
