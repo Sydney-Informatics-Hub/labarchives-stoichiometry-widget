@@ -41,6 +41,43 @@ my_widget_script =
         //By default it calls the parent_class's init.
 
         //TO DO write code specific to your form
+        console.log('init function call starts')
+
+        // Number of attributes in each record
+        var nAttributes = 8;
+
+        //my_widget_script.from_json((typeof(json_data) === 'function') ? json_data() : json_data);
+
+        moledata = '';
+
+        // Test
+        if (moledata) {
+          console.log('samta-a')
+        } else {
+          console.log('samta-0')
+        }
+
+        var json_obj = eval(json_data);
+
+        if (json_obj) {
+          console.log(json_obj.length)
+          //for (var i=0; i<json_obj.length; i++) {
+          for (var i=0; i<nAttributes; i++) {
+            console.log(json_obj[i].name)
+            if (json_obj[i].name == 'moles1_number') {
+              moledata = json_obj[i].value;
+            }
+          }
+        }
+
+        // If mole data
+        if (moledata) {
+          console.log('samta-a')
+          my_widget_script.enable_records_2()
+        } else {
+          console.log('samta-0')
+        }
+
         this.parent_class.init(mode, json_data);
 
         if (mode.indexOf('view') > -1) {
@@ -99,18 +136,57 @@ my_widget_script =
 
         // Vijay changes 25 Mar
 
-        // if amount and FW is filled calculate moles
+        // Amount blur handling
+        $('#the_form input[name^=amount]').on('blur', function() {
+          console.log('Amount field on blur')
+
+          // If Fw field is not empty re-calculate Moles field
+          var tr = $(this).closest('tr');
+          var fw = $('input[name^=fw]', tr);
+          var amount = $('input[name^=amount]', tr);
+          var moles = $('input[name^=moles]', tr);
+
+          var content = $('input[name^=fw]', tr);
+          if(content.val().length != '0') {
+            var fw = $('input[name^=fw]', tr);
+            var amount = $('input[name^=amount]', tr);
+            var moles = $('input[name^=moles]', tr);
+            var moles_1 = amount.val() / fw.val()
+            console.log(moles_1)
+            moles.val(moles_1.toFixed(nFixed))
+          } else {
+            console.log('FW filed is empty.')
+          }
+
+        });
+
+        // FW blur handling
         $('#the_form input[name^=fw]').on('blur', function() {
           console.log('FW field on blur')
+          var tr = $(this).closest('tr');
 
-          $content = $('#row1_amount').html();
-          if($content == '') {
+          var content = $('input[name^=amount]', tr);
+          if(content.val().length == '0') {
             // yes it is empty
-            console.log('yes it is empty')
-          }
-          else {
+            var tr = $(this).closest('tr');
+            var fw = $('input[name^=fw]', tr);
+            var amount = $('input[name^=amount]', tr);
+            var moles = $('input[name^=moles]', tr);
+
+            // moles field is not empty calculate a value
+            // else assign a default value of 10
+            if (moles.val().length == '0') {
+              var mole_1	= 2
+              moles.val(mole_1.toFixed(nFixed))
+              var amount_1 = 2 * fw.val()
+              amount.val(amount_1.toFixed(nFixed))
+            } else {
+              console.log('moles field is not empty')
+              var amount_1 = moles.val() * fw.val()
+              amount.val(amount_1.toFixed(nFixed))
+            }
+          } else {
             // no it is not empty
-            console.log('no it is not')
             var tr = $(this).closest('tr');
             var fw = $('input[name^=fw]', tr);
             var amount = $('input[name^=amount]', tr);
@@ -121,19 +197,36 @@ my_widget_script =
           }
         });
 
-        // Vijay changes 25 Mar
-
-        // If FW and moles is filled calculate amount
+        // Moles blur handling
         $('#the_form input[name^=moles]').on('blur', function() {
           console.log('Moles field on blur')
+
           var tr = $(this).closest('tr');
           var fw = $('input[name^=fw]', tr);
-          var moles = $('input[name^=moles]', tr);
           var amount = $('input[name^=amount]', tr);
-          amount_1 = fw.val() * moles.val()
-          amount.val(amount_1.toFixed(nFixed))
-          amount.val((moles.val() * fw.val()).toFixed(nFixed))
+          var moles = $('input[name^=moles]', tr);
+
+          // if fw and amount are empty assign a default value to both of them.
+          if (fw.val().length == '0') {
+            var fw_1= 2
+            fw.val(fw_1.toFixed(nFixed))
+            var amount_1 = moles.val() * 2
+            amount.val(amount_1.toFixed(nFixed))
+          } else {
+            var tr = $(this).closest('tr');
+            var fw = $('input[name^=fw]', tr);
+            var moles = $('input[name^=moles]', tr);
+            var amount = $('input[name^=amount]', tr);
+            amount_1 = fw.val() * moles.val()
+            amount.val(amount_1.toFixed(nFixed))
+            amount.val((moles.val() * fw.val()).toFixed(nFixed))
+          }
+
+          // Enable rest of the records of the experiment.
+          my_widget_script.enable_records()
         });
+
+        // Vijay changes 25 Mar
 
         $('#the_form input[name^=equivalents]').on('keyup change', function() {
           var tr = $(this).closest('tr');
@@ -179,12 +272,13 @@ my_widget_script =
         //LA calls this method with b_suppress_message and relies on your code to communicate issues to the user
         //Returning an empty array [] or NULL equals no error
         //TO DO write code specific to your form
-
+        console.log('In is_valid:function')
         return this.parent_class.is_valid(b_suppress_message);
       },
 
       is_edited:function () {
         //should return true if the form has been edited since it was loaded or since reset_edited was called
+        console.log('In is_edited:function')
         return this.parent_class.is_edited();
       },
 
@@ -194,8 +288,103 @@ my_widget_script =
         return this.parent_class.reset_edited();
       },
 
+      enable_records_2: function() {
+        console.log('In enable_records_2')
+
+        if ($('#row2_substance input').prop('disabled') == true) {
+          $('#row2_substance input').prop('disabled', false)
+        }
+
+        if ($('#row2_amount input').prop('disabled') == true) {
+          $('#row2_amount input').prop('disabled', false)
+        }
+
+        if ($('#row2_fw input').prop('disabled') == true) {
+          $('#row2_fw input').prop('disabled', false)
+        }
+
+        if ($('#row2_moles input').prop('disabled') == true) {
+          $('#row2_moles input').prop('disabled', false)
+        }
+
+        if ($('#row2_equiv input').prop('disabled') == true) {
+          $('#row2_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row2_volumes input').prop('disabled') == true) {
+          $('#row2_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row2_substance input').prop('disabled') == true) {
+          $('#row2_substance input').prop('disabled', false)
+        }
+
+        if ($('#row2_density input').prop('disabled') == true) {
+          $('#row2_density input').prop('disabled', false)
+        }
+
+        if ($('#row2_comments input').prop('disabled') == true) {
+          $('#row2_comments input').prop('disabled', false)
+        }
+      },
+
+      // Enable the rows on
       enable_records: function() {
         console.log('Entering the enable_records function')
 
+        console.log('Samta-1')
+        console.log($('#row2_substance input').prop('disabled'))
+
+        var content = $("#row1_moles").text();
+        console.log($("#row1_moles").val())
+        console.log($("#row1_moles").val().length)
+        console.log('Samta-2')
+
+        if ($('#row2_substance input').prop('disabled') == true) {
+          $('#row2_substance input').prop('disabled', false)
+        }
+
+        if ($('#row2_amount input').prop('disabled') == true) {
+          $('#row2_amount input').prop('disabled', false)
+        }
+
+        if ($('#row2_fw input').prop('disabled') == true) {
+          $('#row2_fw input').prop('disabled', false)
+        }
+
+        if ($('#row2_moles input').prop('disabled') == true) {
+          $('#row2_moles input').prop('disabled', false)
+        }
+
+        if ($('#row2_equiv input').prop('disabled') == true) {
+          $('#row2_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row2_volumes input').prop('disabled') == true) {
+          $('#row2_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row2_substance input').prop('disabled') == true) {
+          $('#row2_substance input').prop('disabled', false)
+        }
+
+        if ($('#row2_density input').prop('disabled') == true) {
+          $('#row2_density input').prop('disabled', false)
+        }
+
+        if ($('#row2_comments input').prop('disabled') == true) {
+          $('#row2_comments input').prop('disabled', false)
+        }
+
+        //$('#row2_amount input').prop('disabled', false)
+        //$('#row2_fw input').prop('disabled', false)
+        //$('#row2_moles input').prop('disabled', false)
+        //$('#row2_equiv input').prop('disabled', false)
+        //$('#row2_volumes input').prop('disabled', false)
+        //$('#row2_density input').prop('disabled', false)
+        //$('#row2_comments input').prop('disabled', false)
+
+
+        //$('#the_form input[name^=equivalents]')
       },
     }

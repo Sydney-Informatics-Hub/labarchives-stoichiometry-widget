@@ -36,24 +36,24 @@ input[type=text]:disabled {
     </thead>
     <tbody>
     <tr class="initialRow">
-        <th scope="col" style="text-align: left; width: 35px;"><input maxlength="30" name="substance1" size="35" type="text" /></th>
+        <td id="row1_amount" scope="col" style="text-align: left; width: 35px;"><input maxlength="30" name="substance1" size="35" type="text" /></td>
         <td id="row1_amount" scope="col" style="text-align: right; width: 8px;"><input name="amount1_number" type="text" /></td>
-        <th id="row1_fw" scope="col" style="text-align: right; width: 8px;"><input name="fw1_number" size="8" type="text" /></th>
-        <th id="row1_moles" scope="col" style="text-align: right; width: 8px;"><input name="moles1_number" size="8" type="text" /></th>
-        <th scope="col" style="text-align: right; width: 5px;"><input name="equivalents1_number" size="5" type="text" value="1" /></th>
-        <th scope="col" style="text-align: right; width: 8px;"><input name="volume1_formula" size="8" type="text" value="(#{amount1_number}/#{density1_number}).toFixed(2)" /></th>
-        <th scope="col" style="text-align: right; width: 5px;"><input name="density1_number" size="5" type="text" /></th>
-        <th scope="col" style="text-align: right;"><input maxlength="100" name="comments1" size="35" type="text" /></th>
+        <td id="row1_fw" scope="col" style="text-align: right; width: 8px;"><input name="fw1_number" size="8" type="text" /></td>
+        <td id="row1_moles" scope="col" style="text-align: right; width: 8px;"><input name="moles1_number" size="8" type="text" /></td>
+        <td id="row1_equiv" scope="col" style="text-align: right; width: 5px;"><input name="equivalents1_number" size="5" type="text" value="1" /></td>
+        <td id="row1_volumes" scope="col" style="text-align: right; width: 8px;"><input name="volume1_formula" size="8" type="text" value="(#{amount1_number}/#{density1_number}).toFixed(2)" /></td>
+        <td id="row1_density" scope="col" style="text-align: right; width: 5px;"><input name="density1_number" size="5" type="text" /></td>
+        <td id="row1_comments" scope="col" style="text-align: right;"><input maxlength="100" name="comments1" size="35" type="text" /></td>
     </tr>
-    <tr class="otherRow">
-        <th id="row2_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance2" size="35" type="text" /></th>
-        <td id="row2_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount2_number" size="8" type="text" value="" /></td>
-        <th id="row2_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw2_number" size="8" type="text" /></th>
-        <th id="row2_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles2" size="8" type="text" value="(#{moles1_formula}*#{equivalents2_number}).toFixed(2)" /></th>
-        <th scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents2_number" size="5" type="text" /></th>
-        <th scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume2_formula" size="8" type="text" value="(#{amount2_number}/#{density2_number}).toFixed(2)" /></th>
-        <th scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density2_number" size="5" type="text" /></th>
-        <th scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments2" size="35" type="text" /></th>
+    <tr class="Row2">
+        <td id="row2_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance2" row_1="false" size="35" type="text" /></td>
+        <td id="row2_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount2_number" type="text" /></td>
+        <td id="row2_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw2_number" size="8" type="text" /></td>
+        <td id="row2_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles2_number" size="8" type="text" /></td>
+        <td id="row2_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents2_number" size="5" type="text" /></td>
+        <td id="row2_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume2_formula" size="8" type="text" value="(#{amount2_number}/#{density2_number}).toFixed(2)" /></td>
+        <td id="row2_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density2_number" size="5" type="text" /></td>
+        <td id="row2_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments2" size="35" type="text" /></td>
     </tr>
     </tbody>
 </table>
