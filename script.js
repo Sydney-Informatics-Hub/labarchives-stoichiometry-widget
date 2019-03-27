@@ -49,6 +49,7 @@ my_widget_script =
         //my_widget_script.from_json((typeof(json_data) === 'function') ? json_data() : json_data);
 
         moledata = '';
+        fwdata = '';
 
         // Test
         if (moledata) {
@@ -67,13 +68,28 @@ my_widget_script =
             if (json_obj[i].name == 'moles1_number') {
               moledata = json_obj[i].value;
             }
+
+            if (json_obj[i].name == 'fw1_number') {
+              fwdata = json_obj[i].value;
+            }
           }
         }
 
-        // If mole data
+        // If mole and fw data in row 1, enable rest of the rows for editing
         if (moledata) {
-          console.log('samta-a')
-          my_widget_script.enable_records_2()
+          if (fwdata) {
+            console.log('samta-a')
+            my_widget_script.enable_records_2()
+            my_widget_script.enable_records_3()
+            my_widget_script.enable_records_3()
+            my_widget_script.enable_records_4()
+            my_widget_script.enable_records_5()
+            my_widget_script.enable_records_6()
+            my_widget_script.enable_records_7()
+            my_widget_script.enable_records_8()
+            my_widget_script.enable_records_9()
+            my_widget_script.enable_records_10()
+          }
         } else {
           console.log('samta-0')
         }
@@ -154,6 +170,16 @@ my_widget_script =
             var moles_1 = amount.val() / fw.val()
             console.log(moles_1)
             moles.val(moles_1.toFixed(nFixed))
+            // enable all the rows as all important values for row 1 are filled
+            my_widget_script.enable_records_2()
+            my_widget_script.enable_records_3()
+            my_widget_script.enable_records_4()
+            my_widget_script.enable_records_5()
+            my_widget_script.enable_records_6()
+            my_widget_script.enable_records_7()
+            my_widget_script.enable_records_8()
+            my_widget_script.enable_records_9()
+            my_widget_script.enable_records_10()
           } else {
             console.log('FW filed is empty.')
           }
@@ -176,9 +202,9 @@ my_widget_script =
             // moles field is not empty calculate a value
             // else assign a default value of 10
             if (moles.val().length == '0') {
-              var mole_1	= 2
+              var mole_1 = 1
               moles.val(mole_1.toFixed(nFixed))
-              var amount_1 = 2 * fw.val()
+              var amount_1 = 1 * fw.val()
               amount.val(amount_1.toFixed(nFixed))
             } else {
               console.log('moles field is not empty')
@@ -195,6 +221,17 @@ my_widget_script =
             console.log(moles_1)
             moles.val(moles_1.toFixed(nFixed))
           }
+
+          my_widget_script.enable_records_2()
+          my_widget_script.enable_records_3()
+          my_widget_script.enable_records_3()
+          my_widget_script.enable_records_4()
+          my_widget_script.enable_records_5()
+          my_widget_script.enable_records_6()
+          my_widget_script.enable_records_7()
+          my_widget_script.enable_records_8()
+          my_widget_script.enable_records_9()
+          my_widget_script.enable_records_10()
         });
 
         // Moles blur handling
@@ -208,9 +245,9 @@ my_widget_script =
 
           // if fw and amount are empty assign a default value to both of them.
           if (fw.val().length == '0') {
-            var fw_1= 2
+            var fw_1= 1
             fw.val(fw_1.toFixed(nFixed))
-            var amount_1 = moles.val() * 2
+            var amount_1 = moles.val() * 1
             amount.val(amount_1.toFixed(nFixed))
           } else {
             var tr = $(this).closest('tr');
@@ -222,8 +259,19 @@ my_widget_script =
             amount.val((moles.val() * fw.val()).toFixed(nFixed))
           }
 
-          // Enable rest of the records of the experiment.
-          my_widget_script.enable_records()
+          // Enable rest of the records of the experiment; if there moles and fw value exist for row 1
+          if (fw.val().length != '0') {
+            //my_widget_script.enable_records()
+            my_widget_script.enable_records_2()
+            my_widget_script.enable_records_3()
+            my_widget_script.enable_records_4()
+            my_widget_script.enable_records_5()
+            my_widget_script.enable_records_6()
+            my_widget_script.enable_records_7()
+            my_widget_script.enable_records_8()
+            my_widget_script.enable_records_9()
+            my_widget_script.enable_records_10()
+          }
         });
 
         // Vijay changes 25 Mar
@@ -288,47 +336,7 @@ my_widget_script =
         return this.parent_class.reset_edited();
       },
 
-      enable_records_2: function() {
-        console.log('In enable_records_2')
-
-        if ($('#row2_substance input').prop('disabled') == true) {
-          $('#row2_substance input').prop('disabled', false)
-        }
-
-        if ($('#row2_amount input').prop('disabled') == true) {
-          $('#row2_amount input').prop('disabled', false)
-        }
-
-        if ($('#row2_fw input').prop('disabled') == true) {
-          $('#row2_fw input').prop('disabled', false)
-        }
-
-        if ($('#row2_moles input').prop('disabled') == true) {
-          $('#row2_moles input').prop('disabled', false)
-        }
-
-        if ($('#row2_equiv input').prop('disabled') == true) {
-          $('#row2_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row2_volumes input').prop('disabled') == true) {
-          $('#row2_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row2_substance input').prop('disabled') == true) {
-          $('#row2_substance input').prop('disabled', false)
-        }
-
-        if ($('#row2_density input').prop('disabled') == true) {
-          $('#row2_density input').prop('disabled', false)
-        }
-
-        if ($('#row2_comments input').prop('disabled') == true) {
-          $('#row2_comments input').prop('disabled', false)
-        }
-      },
-
-      // Enable the rows on
+      // Enable the rows on moles blur; This function is no longer used.
       enable_records: function() {
         console.log('Entering the enable_records function')
 
@@ -387,4 +395,331 @@ my_widget_script =
 
         //$('#the_form input[name^=equivalents]')
       },
+
+      enable_records_2: function() {
+        console.log('In enable_records_2')
+
+        if ($('#row2_substance input').prop('disabled') == true) {
+          $('#row2_substance input').prop('disabled', false)
+        }
+
+        if ($('#row2_amount input').prop('disabled') == true) {
+          $('#row2_amount input').prop('disabled', false)
+        }
+
+        if ($('#row2_fw input').prop('disabled') == true) {
+          $('#row2_fw input').prop('disabled', false)
+        }
+
+        if ($('#row2_moles input').prop('disabled') == true) {
+          $('#row2_moles input').prop('disabled', false)
+        }
+
+        if ($('#row2_equiv input').prop('disabled') == true) {
+          $('#row2_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row2_volumes input').prop('disabled') == true) {
+          $('#row2_volumes input').prop('disabled', false)
+        }
+
+
+        if ($('#row2_density input').prop('disabled') == true) {
+          $('#row2_density input').prop('disabled', false)
+        }
+
+        if ($('#row2_comments input').prop('disabled') == true) {
+          $('#row2_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_3: function() {
+        console.log('In enable_records_3')
+
+        if ($('#row3_substance input').prop('disabled') == true) {
+          $('#row3_substance input').prop('disabled', false)
+        }
+
+        if ($('#row3_amount input').prop('disabled') == true) {
+          $('#row3_amount input').prop('disabled', false)
+        }
+
+        if ($('#row3_fw input').prop('disabled') == true) {
+          $('#row3_fw input').prop('disabled', false)
+        }
+
+        if ($('#row3_moles input').prop('disabled') == true) {
+          $('#row3_moles input').prop('disabled', false)
+        }
+
+        if ($('#row3_equiv input').prop('disabled') == true) {
+          $('#row3_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row3_volumes input').prop('disabled') == true) {
+          $('#row3_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row3_density input').prop('disabled') == true) {
+          $('#row3_density input').prop('disabled', false)
+        }
+
+        if ($('#row3_comments input').prop('disabled') == true) {
+          $('#row3_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_4: function() {
+        console.log('In enable_records_4')
+
+        if ($('#row4_substance input').prop('disabled') == true) {
+          $('#row4_substance input').prop('disabled', false)
+        }
+
+        if ($('#row4_amount input').prop('disabled') == true) {
+          $('#row4_amount input').prop('disabled', false)
+        }
+
+        if ($('#row4_fw input').prop('disabled') == true) {
+          $('#row4_fw input').prop('disabled', false)
+        }
+
+        if ($('#row4_moles input').prop('disabled') == true) {
+          $('#row4_moles input').prop('disabled', false)
+        }
+
+        if ($('#row4_equiv input').prop('disabled') == true) {
+          $('#row4_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row4_volumes input').prop('disabled') == true) {
+          $('#row4_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row4_density input').prop('disabled') == true) {
+          $('#row4_density input').prop('disabled', false)
+        }
+
+        if ($('#row4_comments input').prop('disabled') == true) {
+          $('#row4_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_5: function() {
+        console.log('In enable_records_5')
+
+        if ($('#row5_substance input').prop('disabled') == true) {
+          $('#row5_substance input').prop('disabled', false)
+        }
+
+        if ($('#row5_amount input').prop('disabled') == true) {
+          $('#row5_amount input').prop('disabled', false)
+        }
+
+        if ($('#row5_fw input').prop('disabled') == true) {
+          $('#row5_fw input').prop('disabled', false)
+        }
+
+        if ($('#row5_moles input').prop('disabled') == true) {
+          $('#row5_moles input').prop('disabled', false)
+        }
+
+        if ($('#row5_equiv input').prop('disabled') == true) {
+          $('#row5_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row5_volumes input').prop('disabled') == true) {
+          $('#row5_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row5_density input').prop('disabled') == true) {
+          $('#row5_density input').prop('disabled', false)
+        }
+
+        if ($('#row5_comments input').prop('disabled') == true) {
+          $('#row5_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_6: function() {
+        console.log('In enable_records_6')
+
+        if ($('#row6_substance input').prop('disabled') == true) {
+          $('#row6_substance input').prop('disabled', false)
+        }
+
+        if ($('#row6_amount input').prop('disabled') == true) {
+          $('#row6_amount input').prop('disabled', false)
+        }
+
+        if ($('#row6_fw input').prop('disabled') == true) {
+          $('#row6_fw input').prop('disabled', false)
+        }
+
+        if ($('#row6_moles input').prop('disabled') == true) {
+          $('#row6_moles input').prop('disabled', false)
+        }
+
+        if ($('#row6_equiv input').prop('disabled') == true) {
+          $('#row6_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row6_volumes input').prop('disabled') == true) {
+          $('#row6_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row6_density input').prop('disabled') == true) {
+          $('#row6_density input').prop('disabled', false)
+        }
+
+        if ($('#row6_comments input').prop('disabled') == true) {
+          $('#row6_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_7: function() {
+        console.log('In enable_records_7')
+
+        if ($('#row7_substance input').prop('disabled') == true) {
+          $('#row7_substance input').prop('disabled', false)
+        }
+
+        if ($('#row7_amount input').prop('disabled') == true) {
+          $('#row7_amount input').prop('disabled', false)
+        }
+
+        if ($('#row7_fw input').prop('disabled') == true) {
+          $('#row7_fw input').prop('disabled', false)
+        }
+
+        if ($('#row7_moles input').prop('disabled') == true) {
+          $('#row7_moles input').prop('disabled', false)
+        }
+
+        if ($('#row7_equiv input').prop('disabled') == true) {
+          $('#row7_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row7_volumes input').prop('disabled') == true) {
+          $('#row7_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row7_density input').prop('disabled') == true) {
+          $('#row7_density input').prop('disabled', false)
+        }
+
+        if ($('#row7_comments input').prop('disabled') == true) {
+          $('#row7_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_8: function() {
+        console.log('In enable_records_8')
+
+        if ($('#row8_substance input').prop('disabled') == true) {
+          $('#row8_substance input').prop('disabled', false)
+        }
+
+        if ($('#row8_amount input').prop('disabled') == true) {
+          $('#row8_amount input').prop('disabled', false)
+        }
+
+        if ($('#row8_fw input').prop('disabled') == true) {
+          $('#row8_fw input').prop('disabled', false)
+        }
+
+        if ($('#row8_moles input').prop('disabled') == true) {
+          $('#row8_moles input').prop('disabled', false)
+        }
+
+        if ($('#row8_equiv input').prop('disabled') == true) {
+          $('#row8_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row8_volumes input').prop('disabled') == true) {
+          $('#row8_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row8_density input').prop('disabled') == true) {
+          $('#row8_density input').prop('disabled', false)
+        }
+
+        if ($('#row8_comments input').prop('disabled') == true) {
+          $('#row8_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_9: function() {
+        console.log('In enable_records_9')
+
+        if ($('#row9_substance input').prop('disabled') == true) {
+          $('#row9_substance input').prop('disabled', false)
+        }
+
+        if ($('#row9_amount input').prop('disabled') == true) {
+          $('#row9_amount input').prop('disabled', false)
+        }
+
+        if ($('#row9_fw input').prop('disabled') == true) {
+          $('#row9_fw input').prop('disabled', false)
+        }
+
+        if ($('#row9_moles input').prop('disabled') == true) {
+          $('#row9_moles input').prop('disabled', false)
+        }
+
+        if ($('#row9_equiv input').prop('disabled') == true) {
+          $('#row9_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row9_volumes input').prop('disabled') == true) {
+          $('#row9_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row9_density input').prop('disabled') == true) {
+          $('#row9_density input').prop('disabled', false)
+        }
+
+        if ($('#row9_comments input').prop('disabled') == true) {
+          $('#row9_comments input').prop('disabled', false)
+        }
+      },
+
+      enable_records_10: function() {
+        console.log('In enable_records_10')
+
+        if ($('#row10_substance input').prop('disabled') == true) {
+          $('#row10_substance input').prop('disabled', false)
+        }
+
+        if ($('#row10_amount input').prop('disabled') == true) {
+          $('#row10_amount input').prop('disabled', false)
+        }
+
+        if ($('#row10_fw input').prop('disabled') == true) {
+          $('#row10_fw input').prop('disabled', false)
+        }
+
+        if ($('#row10_moles input').prop('disabled') == true) {
+          $('#row10_moles input').prop('disabled', false)
+        }
+
+        if ($('#row10_equiv input').prop('disabled') == true) {
+          $('#row10_equiv input').prop('disabled', false)
+        }
+
+        if ($('#row10_volumes input').prop('disabled') == true) {
+          $('#row10_volumes input').prop('disabled', false)
+        }
+
+        if ($('#row10_density input').prop('disabled') == true) {
+          $('#row10_density input').prop('disabled', false)
+        }
+
+        if ($('#row10_comments input').prop('disabled') == true) {
+          $('#row10_comments input').prop('disabled', false)
+        }
+      },
+
+
     }

@@ -9,7 +9,7 @@
 }
 
 input[type=text]:enabled {
-    background: #19aeff;
+    background: #add8e6;
 }
 
 input[type=text]:disabled {
@@ -36,7 +36,7 @@ input[type=text]:disabled {
     </thead>
     <tbody>
     <tr class="initialRow">
-        <td id="row1_amount" scope="col" style="text-align: left; width: 35px;"><input maxlength="30" name="substance1" size="35" type="text" /></td>
+        <td id="row1_substance" scope="col" style="text-align: left; width: 35px;"><input maxlength="30" name="substance1" size="35" type="text" /></td>
         <td id="row1_amount" scope="col" style="text-align: right; width: 8px;"><input name="amount1_number" type="text" /></td>
         <td id="row1_fw" scope="col" style="text-align: right; width: 8px;"><input name="fw1_number" size="8" type="text" /></td>
         <td id="row1_moles" scope="col" style="text-align: right; width: 8px;"><input name="moles1_number" size="8" type="text" /></td>
@@ -46,7 +46,7 @@ input[type=text]:disabled {
         <td id="row1_comments" scope="col" style="text-align: right;"><input maxlength="100" name="comments1" size="35" type="text" /></td>
     </tr>
     <tr class="Row2">
-        <td id="row2_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance2" row_1="false" size="35" type="text" /></td>
+        <td id="row2_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance2" size="35" type="text" /></td>
         <td id="row2_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount2_number" type="text" /></td>
         <td id="row2_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw2_number" size="8" type="text" /></td>
         <td id="row2_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles2_number" size="8" type="text" /></td>
@@ -54,6 +54,86 @@ input[type=text]:disabled {
         <td id="row2_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume2_formula" size="8" type="text" value="(#{amount2_number}/#{density2_number}).toFixed(2)" /></td>
         <td id="row2_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density2_number" size="5" type="text" /></td>
         <td id="row2_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments2" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row3">
+        <td id="row3_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance3" size="35" type="text" /></td>
+        <td id="row3_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount3_number" type="text" /></td>
+        <td id="row3_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw3_number" size="8" type="text" /></td>
+        <td id="row3_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles3_number" size="8" type="text" /></td>
+        <td id="row3_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents3_number" size="5" type="text" /></td>
+        <td id="row3_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume3_formula" size="8" type="text" value="(#{amount3_number}/#{density3_number}).toFixed(2)" /></td>
+        <td id="row3_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density3_number" size="5" type="text" /></td>
+        <td id="row3_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments3" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row4">
+        <td id="row4_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance4" size="35" type="text" /></td>
+        <td id="row4_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount4_number" type="text" /></td>
+        <td id="row4_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw4_number" size="8" type="text" /></td>
+        <td id="row4_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles4_number" size="8" type="text" /></td>
+        <td id="row4_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents4_number" size="5" type="text" /></td>
+        <td id="row4_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume4_formula" size="8" type="text" value="(#{amount4_number}/#{density4_number}).toFixed(2)" /></td>
+        <td id="row4_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density4_number" size="5" type="text" /></td>
+        <td id="row4_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments4" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row5">
+        <td id="row5_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance5" size="35" type="text" /></td>
+        <td id="row5_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount5_number" type="text" /></td>
+        <td id="row5_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw5_number" size="8" type="text" /></td>
+        <td id="row5_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles5_number" size="8" type="text" /></td>
+        <td id="row5_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents5_number" size="5" type="text" /></td>
+        <td id="row5_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume5_formula" size="8" type="text" value="(#{amount5_number}/#{density5_number}).toFixed(2)" /></td>
+        <td id="row5_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density5_number" size="5" type="text" /></td>
+        <td id="row5_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments5" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row6">
+        <td id="row6_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance6" size="35" type="text" /></td>
+        <td id="row6_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount6_number" type="text" /></td>
+        <td id="row6_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw6_number" size="8" type="text" /></td>
+        <td id="row6_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles6_number" size="8" type="text" /></td>
+        <td id="row6_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents6_number" size="5" type="text" /></td>
+        <td id="row6_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume6_formula" size="8" type="text" value="(#{amount6_number}/#{density6_number}).toFixed(2)" /></td>
+        <td id="row6_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density6_number" size="5" type="text" /></td>
+        <td id="row6_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments6" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row7">
+        <td id="row7_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance7" size="35" type="text" /></td>
+        <td id="row7_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount7_number" type="text" /></td>
+        <td id="row7_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw7_number" size="8" type="text" /></td>
+        <td id="row7_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles7_number" size="8" type="text" /></td>
+        <td id="row7_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents7_number" size="5" type="text" /></td>
+        <td id="row7_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume7_formula" size="8" type="text" value="(#{amount7_number}/#{density7_number}).toFixed(2)" /></td>
+        <td id="row7_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density7_number" size="5" type="text" /></td>
+        <td id="row7_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments7" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row8">
+        <td id="row8_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance8" size="35" type="text" /></td>
+        <td id="row8_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount8_number" type="text" /></td>
+        <td id="row8_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw8_number" size="8" type="text" /></td>
+        <td id="row8_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles8_number" size="8" type="text" /></td>
+        <td id="row8_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents8_number" size="5" type="text" /></td>
+        <td id="row8_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume8_formula" size="8" type="text" value="(#{amount8_number}/#{density8_number}).toFixed(2)" /></td>
+        <td id="row8_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density8_number" size="5" type="text" /></td>
+        <td id="row8_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="70" name="comments8" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row9">
+        <td id="row9_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance9" size="35" type="text" /></td>
+        <td id="row9_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount9_number" type="text" /></td>
+        <td id="row9_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw9_number" size="8" type="text" /></td>
+        <td id="row9_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles9_number" size="8" type="text" /></td>
+        <td id="row9_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents9_number" size="5" type="text" /></td>
+        <td id="row9_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume9_formula" size="8" type="text" value="(#{amount9_number}/#{density9_number}).toFixed(2)" /></td>
+        <td id="row9_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density9_number" size="5" type="text" /></td>
+        <td id="row9_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments9" size="35" type="text" /></td>
+    </tr>
+    <tr class="Row10">
+        <td id="row10_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance10" size="35" type="text" /></td>
+        <td id="row10_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount10_number" type="text" /></td>
+        <td id="row10_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw10_number" size="8" type="text" /></td>
+        <td id="row10_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles10_number" size="8" type="text" /></td>
+        <td id="row10_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents10_number" size="5" type="text" /></td>
+        <td id="row10_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume10_formula" size="8" type="text" value="(#{amount10_number}/#{density10_number}).toFixed(2)" /></td>
+        <td id="row10_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density10_number" size="5" type="text" /></td>
+        <td id="row10_comments" scope="col" style="text-align: right;"><input disabled="disabled" maxlength="100" name="comments10" size="35" type="text" /></td>
     </tr>
     </tbody>
 </table>
