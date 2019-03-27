@@ -9,7 +9,7 @@
 }
 
 input[type=text]:enabled {
-    background: #add8e6;
+    background: #FFFFFF;
 }
 
 input[type=text]:disabled {
@@ -49,7 +49,7 @@ input[type=text]:disabled {
         <td id="row2_substance" scope="col" style="text-align: left; width: 35px;"><input disabled="disabled" maxlength="30" name="substance2" size="35" type="text" /></td>
         <td id="row2_amount" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="amount2_number" type="text" /></td>
         <td id="row2_fw" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="fw2_number" size="8" type="text" /></td>
-        <td id="row2_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles2_number" size="8" type="text" /></td>
+        <td id="row2_moles" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="moles2_number" size="8" type="text" value="(#{moles1_number}*#{equivalents2_number}).toFixed(2)" /></td>
         <td id="row2_equiv" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="equivalents2_number" size="5" type="text" /></td>
         <td id="row2_volumes" scope="col" style="text-align: right; width: 8px;"><input disabled="disabled" name="volume2_formula" size="8" type="text" value="(#{amount2_number}/#{density2_number}).toFixed(2)" /></td>
         <td id="row2_density" scope="col" style="text-align: right; width: 5px;"><input disabled="disabled" name="density2_number" size="5" type="text" /></td>
