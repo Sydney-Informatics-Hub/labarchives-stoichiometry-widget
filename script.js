@@ -52,7 +52,6 @@ my_widget_script =
         fwdata = '';
 
         var json_obj = eval(json_data);
-
         if (json_obj) {
           console.log(json_obj.length)
           //for (var i=0; i<json_obj.length; i++) {
@@ -61,7 +60,6 @@ my_widget_script =
             if (json_obj[i].name == 'moles1_number') {
               moledata = json_obj[i].value;
             }
-
             if (json_obj[i].name == 'fw1_number') {
               fwdata = json_obj[i].value;
             }
@@ -69,13 +67,11 @@ my_widget_script =
         }
 
         // If mole and fw data in row 1, enable rest of the rows for editing
-        if (moledata) {
-          if (fwdata) {
-            console.log('samta-a')
-            my_widget_script.enable_all_records()
-          }
-        } else {
-          console.log('samta-0')
+        if (moledata && fwdata) {
+          //if (fwdata) {
+          console.log('samta-a')
+          my_widget_script.enable_all_records()
+          //}
         }
 
         this.parent_class.init(mode, json_data);
@@ -170,28 +166,34 @@ my_widget_script =
             $('#the_form input[name^=amount]').on('blur', function() {
               console.log('Amount field on blur')
 
-              // If Fw field is not empty calculate Moles field
+              // Case fw field is filled and moles field is empty
               var tr = $(this).closest('tr');
               current_class = tr.attr('class')
-              console.log(current_class)
+              var compare_class_id = current_class.localeCompare('initialRow');
               var fw = $('input[name^=fw]', tr);
               var amount = $('input[name^=amount]', tr);
               var moles = $('input[name^=moles]', tr);
-              if(fw.val().length != '0') {
+              if(fw.val() && amount.val()) {
                 var moles_1 = amount.val() / fw.val()
                 console.log(moles_1)
-                if (moles.val().length == 0) {
+                if (!moles.val()) {
                   moles.val(moles_1.toFixed(nFixed))
                 }
-              } else {
-                console.log('FW filed is empty.')
               }
 
-              var compare_class_id = current_class.localeCompare('initialRow');
               // enable all the rows as all important values for row 1 are filled
               if (moles.val() && fw.val() && amount.val && (compare_class_id == 0))  {
-                console.log('we are in the first row, all good to go and enable the remaining rows')
                 my_widget_script.enable_all_records()
+              }
+
+              // Check if fw is present and this is not first row, then calculate moles and eq
+              var equiv = $('input[name^=equivalents]', tr);
+              if ( (amount.val()) && (fw.val()) && (compare_class_id != 0)) {
+                var equiv = $('input[name^=equivalents]', tr);
+                var moles1 = $('#the_form input[name=moles1_number]');
+                moles.val((amount.val() / fw.val()).toFixed(nFixed));
+                var moles = $('input[name^=moles]', tr);
+                equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
               }
             });
 
@@ -200,32 +202,53 @@ my_widget_script =
           console.log('FW field on blur')
           var tr = $(this).closest('tr');
           current_class = tr.attr('class')
+          var compare_class_id = current_class.localeCompare('initialRow');
           var amount = $('input[name^=amount]', tr);
           var fw = $('input[name^=fw]', tr);
           var moles = $('input[name^=moles]', tr);
+          var equiv = $('input[name^=equivalents]', tr);
 
-          if(amount.val().length == '0') {
+          console.log('Log-1')
+          console.log(amount.val())
+          console.log('Log-2')
 
-            // moles field is not empty calculate a value
+          if (!(amount.val())) {
+            //if (amount.val().length == '0') {
+            console.log('WHy????????')
+            console.log('amount field not empty')
+            //if (!moles.val()) {
             if (moles.val().length != '0') {
               console.log('moles field is not empty')
               var amount_1 = moles.val() * fw.val()
               amount.val(amount_1.toFixed(nFixed))
             }
-
           } else {
+            // Fw and amount are present, compute moles and equiv
+            console.log('amount field is not empty')
             var moles_1 = amount.val() / fw.val()
-            console.log('samta-1')
             console.log(moles_1)
             moles.val(moles_1.toFixed(nFixed))
+            // if not row-1 calculate equiv value too
+            if (compare_class_id != 0) {
+              var moles1 = $('#the_form input[name=moles1_number]');
+              if (amount.val() && fw.val() && moles1.val()) {
+                equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
+              }
+            }
           }
 
-          var compare_class_id = current_class.localeCompare('initialRow');
           // check if all are filled then enable rest of the rows only if the current row is 1.
           if (moles.val() && fw.val() && amount.val && (compare_class_id == 0)) {
             my_widget_script.enable_all_records()
           }
 
+          // Check if equiv is present and this is not first row, then calculate moles and amount if not present
+          var equiv = $('input[name^=equivalents]', tr);
+          if ( (equiv.val()) && (compare_class_id != 0) && (!moles.val()) && (!amount.val())) {
+            var moles1 = $('#the_form input[name=moles1_number]');
+            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+            amount.val((moles.val() * fw.val()).toFixed(nFixed))
+          }
         });
 
         // Moles blur handling
@@ -233,29 +256,32 @@ my_widget_script =
           console.log('Moles field on blur')
           var tr = $(this).closest('tr');
           current_class = tr.attr('class')
+          var compare_class_id = current_class.localeCompare('initialRow');
           var fw = $('input[name^=fw]', tr);
           var amount = $('input[name^=amount]', tr);
           var moles = $('input[name^=moles]', tr);
 
-          if (fw.val().length == '0') {
+          //if (fw.val().length == '0') {
+          if (!fw.val()) {
             console.log('fw field is empty')
           } else {
             console.log('fw field is not empty')
-            if (amount.val().length == 0 && moles.val()) {
-              //if (moles.val()) {
-              //amount_1 = fw.val() * moles.val()
-              amount.val((moles.val() * fw.val()).toFixed(nFixed))
-              //}
+            //if (amount.val().length == 0 ) {
+            if (!amount.val()) {
+              if (moles.val()) {
+                amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              }
             }
+            //}
           }
 
           // Enable rest of the records of the experiment; if there moles and fw value exist for row
-          var compare_class_id = current_class.localeCompare('initialRow');
           if (moles.val() && fw.val() && amount.val && (compare_class_id == 0)) {
             my_widget_script.enable_all_records()
           }
         });
 
+        // Equivalence blur handling
         $('#the_form input[name^=equivalents]').on('blur', function() {
           console.log('In equivalents blur change')
 
@@ -270,12 +296,8 @@ my_widget_script =
             moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
             amount.val((moles.val() * fw.val()).toFixed(nFixed))
           }
-
         });
-
         // Vijay changes 25 Mar
-
-
       },
 
       to_json:function () {
