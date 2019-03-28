@@ -100,7 +100,7 @@ my_widget_script =
         }
 
         var nFixed = 2;
-
+        // JN CODE
         /* $('#the_form input[name^=amount]').on('keyup change', function() {
            var tr = $(this).closest('tr');
            var equiv = $('input[name^=equivalents]', tr);
@@ -133,11 +133,33 @@ my_widget_script =
            }
          });*/
 
+        /*$('#the_form input[name^=equivalents]').on('keyup change', function() {
+          console.log('In equivalents keyup change')
+          var tr = $(this).closest('tr');
+          var amount = $('input[name^=amount]', tr);
+          var fw = $('input[name^=fw]', tr);
+          var moles = $('input[name^=moles]', tr);
+          var moles1 = $('#the_form input[name=moles1_number]');
+          var equiv = $('input[name^=equivalents]', tr);
+
+          console.log('Geet-1')
+          console.log(equiv.val())
+          console.log(fw.val())
+          console.log(moles1.val())
+          console.log('Geet-2')
+          if (equiv.val() && fw.val() && moles1.val()) {
+            console.log('mole values are being set.')
+            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+            fw.change();
+          }
+        });*/
+        // JN CODE
 
         // Vijay changes 25 Mar
 
         $('#the_form input[name^=amount]').on('focus', function() {
-          console.log('In amount on focus')
+          var tr = $(this).closest('tr');
+          console.log('In amount on focus' + ' ' + tr.attr('class'))
         }),
 
             $('#the_form input[name^=amount]').on('change', function() {
@@ -150,11 +172,12 @@ my_widget_script =
 
               // If Fw field is not empty calculate Moles field
               var tr = $(this).closest('tr');
+              current_class = tr.attr('class')
+              console.log(current_class)
               var fw = $('input[name^=fw]', tr);
               var amount = $('input[name^=amount]', tr);
               var moles = $('input[name^=moles]', tr);
               if(fw.val().length != '0') {
-                //var moles = $('input[name^=moles]', tr);
                 var moles_1 = amount.val() / fw.val()
                 console.log(moles_1)
                 if (moles.val().length == 0) {
@@ -164,8 +187,10 @@ my_widget_script =
                 console.log('FW filed is empty.')
               }
 
+              var compare_class_id = current_class.localeCompare('initialRow');
               // enable all the rows as all important values for row 1 are filled
-              if (moles.val() && fw.val() && amount.val) {
+              if (moles.val() && fw.val() && amount.val && (compare_class_id == 0))  {
+                console.log('we are in the first row, all good to go and enable the remaining rows')
                 my_widget_script.enable_all_records()
               }
             });
@@ -174,6 +199,7 @@ my_widget_script =
         $('#the_form input[name^=fw]').on('blur', function() {
           console.log('FW field on blur')
           var tr = $(this).closest('tr');
+          current_class = tr.attr('class')
           var amount = $('input[name^=amount]', tr);
           var fw = $('input[name^=fw]', tr);
           var moles = $('input[name^=moles]', tr);
@@ -194,8 +220,9 @@ my_widget_script =
             moles.val(moles_1.toFixed(nFixed))
           }
 
-          // check if all are filled then enable rest of the rows.
-          if (moles.val() && fw.val() && amount.val) {
+          var compare_class_id = current_class.localeCompare('initialRow');
+          // check if all are filled then enable rest of the rows only if the current row is 1.
+          if (moles.val() && fw.val() && amount.val && (compare_class_id == 0)) {
             my_widget_script.enable_all_records()
           }
 
@@ -204,8 +231,8 @@ my_widget_script =
         // Moles blur handling
         $('#the_form input[name^=moles]').on('blur', function() {
           console.log('Moles field on blur')
-
           var tr = $(this).closest('tr');
+          current_class = tr.attr('class')
           var fw = $('input[name^=fw]', tr);
           var amount = $('input[name^=amount]', tr);
           var moles = $('input[name^=moles]', tr);
@@ -214,33 +241,41 @@ my_widget_script =
             console.log('fw field is empty')
           } else {
             console.log('fw field is not empty')
-            if (amount.val().length == 0) {
-              amount_1 = fw.val() * moles.val()
+            if (amount.val().length == 0 && moles.val()) {
+              //if (moles.val()) {
+              //amount_1 = fw.val() * moles.val()
               amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              //}
             }
           }
 
-          // Enable rest of the records of the experiment; if there moles and fw value exist for row 1
-          if (moles.val() && fw.val() && amount.val) {
+          // Enable rest of the records of the experiment; if there moles and fw value exist for row
+          var compare_class_id = current_class.localeCompare('initialRow');
+          if (moles.val() && fw.val() && amount.val && (compare_class_id == 0)) {
             my_widget_script.enable_all_records()
           }
         });
 
+        $('#the_form input[name^=equivalents]').on('blur', function() {
+          console.log('In equivalents blur change')
+
+          var tr = $(this).closest('tr');
+          var fw = $('input[name^=fw]', tr);
+          var equiv = $('input[name^=equivalents]', tr);
+          var amount = $('input[name^=amount]', tr);
+          var moles = $('input[name^=moles]', tr);
+          if (fw.val() && !amount.val() && !moles.val()) {
+            console.log('FW exists calculate moles and amount')
+            var moles1 = $('#the_form input[name=moles1_number]');
+            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+            amount.val((moles.val() * fw.val()).toFixed(nFixed))
+          }
+
+        });
+
         // Vijay changes 25 Mar
 
-        $('#the_form input[name^=equivalents]').on('keyup change', function() {
-          console.log('In equivalents keuup change')
-          var tr = $(this).closest('tr');
-          var amount = $('input[name^=amount]', tr);
-          var fw = $('input[name^=fw]', tr);
-          var moles = $('input[name^=moles]', tr);
-          var moles1 = $('#the_form input[name=moles1_formula]');
-          var equiv = $('input[name^=equivalents]', tr);
-          if (equiv.val() && fw.val() && moles1.val()) {
-            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-            fw.change();
-          }
-        });
+
       },
 
       to_json:function () {
@@ -303,7 +338,6 @@ my_widget_script =
       },
 
       enable_records_2: function() {
-
         if ($('#row2_substance input').prop('disabled') == true) {
           $('#row2_substance input').prop('disabled', false)
         }
@@ -339,8 +373,6 @@ my_widget_script =
       },
 
       enable_records_3: function() {
-        //console.log('In enable_records_3')
-
         if ($('#row3_substance input').prop('disabled') == true) {
           $('#row3_substance input').prop('disabled', false)
         }
@@ -375,8 +407,6 @@ my_widget_script =
       },
 
       enable_records_4: function() {
-        //console.log('In enable_records_4')
-
         if ($('#row4_substance input').prop('disabled') == true) {
           $('#row4_substance input').prop('disabled', false)
         }
@@ -411,8 +441,6 @@ my_widget_script =
       },
 
       enable_records_5: function() {
-        //console.log('In enable_records_5')
-
         if ($('#row5_substance input').prop('disabled') == true) {
           $('#row5_substance input').prop('disabled', false)
         }
@@ -447,8 +475,6 @@ my_widget_script =
       },
 
       enable_records_6: function() {
-        //console.log('In enable_records_6')
-
         if ($('#row6_substance input').prop('disabled') == true) {
           $('#row6_substance input').prop('disabled', false)
         }
@@ -483,8 +509,6 @@ my_widget_script =
       },
 
       enable_records_7: function() {
-        //console.log('In enable_records_7')
-
         if ($('#row7_substance input').prop('disabled') == true) {
           $('#row7_substance input').prop('disabled', false)
         }
@@ -519,8 +543,6 @@ my_widget_script =
       },
 
       enable_records_8: function() {
-        //console.log('In enable_records_8')
-
         if ($('#row8_substance input').prop('disabled') == true) {
           $('#row8_substance input').prop('disabled', false)
         }
@@ -555,8 +577,6 @@ my_widget_script =
       },
 
       enable_records_9: function() {
-        //console.log('In enable_records_9')
-
         if ($('#row9_substance input').prop('disabled') == true) {
           $('#row9_substance input').prop('disabled', false)
         }
@@ -591,8 +611,6 @@ my_widget_script =
       },
 
       enable_records_10: function() {
-        //console.log('In enable_records_10')
-
         if ($('#row10_substance input').prop('disabled') == true) {
           $('#row10_substance input').prop('disabled', false)
         }
@@ -625,6 +643,5 @@ my_widget_script =
           $('#row10_comments input').prop('disabled', false)
         }
       },
-
 
     }
