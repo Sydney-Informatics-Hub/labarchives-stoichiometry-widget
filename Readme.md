@@ -15,4 +15,11 @@ For row 1 initial entry, the following are the permitted ways -
 | moles and fw | amt |
 | fw and moles | amt |
 
+|  User Enters  | Automatically Calculated |
+| ------------- | ------------- |
+| amt and fw  | moles  |
+| fw and amt  | moles |
+| moles and fw | amt  |
+| fw and moles  | amt  |
+
 The equiv value for row 1 is set to 1 and cannot be edited by the user.
