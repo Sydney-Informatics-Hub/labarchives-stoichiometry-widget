@@ -40,6 +40,7 @@ For row 1, the behaviour is as below -
 | mol  | mol and amt are recalculated for all rows, greater than 1, which have valid values |
 
 For rows greater than 1, the behaviour is as below - 
+
 |  User Changes  | Automatically Calculated |
 | ------------- | ------------- |
 | amt  | equiv and moles are recalculated for the row for which the amt was changed |
