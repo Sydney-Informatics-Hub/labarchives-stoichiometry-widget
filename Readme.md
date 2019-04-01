@@ -47,7 +47,7 @@ For rows greater than 1, the behaviour is as below -
 | equiv  | amt and moles are recalculated for the row for which the equiv was changed  |
 | fw  | amt and moles are recalculated for the row for which the fw was changed  |
 
-** For volume and density fields**
+**For volume and density fields**
 
 For all rows, user has to enter the density in the experiment, the volume will be automatically calculated by the formula -
 volume = amount / density
