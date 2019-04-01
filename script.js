@@ -53,10 +53,10 @@ my_widget_script =
 
         var json_obj = eval(json_data);
         if (json_obj) {
-          console.log(json_obj.length)
+          //console.log(json_obj.length)
           //for (var i=0; i<json_obj.length; i++) {
           for (var i=0; i<nAttributes; i++) {
-            console.log(json_obj[i].name)
+            //console.log(json_obj[i].name)
             if (json_obj[i].name == 'moles1_number') {
               moledata = json_obj[i].value;
             }
@@ -68,10 +68,7 @@ my_widget_script =
 
         // If mole and fw data in row 1, enable rest of the rows for editing
         if (moledata && fwdata) {
-          //if (fwdata) {
-          console.log('samta-a')
           my_widget_script.enable_all_records()
-          //}
         }
 
         this.parent_class.init(mode, json_data);
@@ -96,110 +93,68 @@ my_widget_script =
         }
 
         var nFixed = 2;
-        // JN CODE
-        /* $('#the_form input[name^=amount]').on('keyup change', function() {
-           var tr = $(this).closest('tr');
-           var equiv = $('input[name^=equivalents]', tr);
-           if (equiv.length != 1)
-             throw ('Found the incorrect number of equiv inputs: ' + equiv.length)
-           equiv = equiv.first();
-           var moles1 = $('#the_form input[name=moles1_formula]');
-           var fw = $('input[name^=fw]', tr);
-           if ($(this).val() && fw.val() && moles1.val())
-             equiv.val(($(this).val() / fw.val() / moles1.val()).toFixed(nFixed))
-         });
 
-         $('#the_form input[name^=fw]').on('keyup change', function() {
-           var tr = $(this).closest('tr');
-           var amount = $('input[name^=amount]', tr);
-           var fw = $('input[name^=fw]', tr);
-           var moles = $('input[name^=moles]', tr);
-           var equiv = $('input[name^=equivalents]', tr);
-           if (moles.val() && fw.val()) {
-             amount.val((moles.val() * fw.val()).toFixed(nFixed))
-           }
-         });
-
-         $('#the_form input[name^=fw]').on('change', function() {
-           var tr = $(this).closest('tr');
-           var amount = $('input[name^=amount]', tr);
-           var equiv = $('input[name^=equivalents]', tr);
-           if (!equiv.val()) {
-             amount.change();
-           }
-         });*/
-
-        /*$('#the_form input[name^=equivalents]').on('keyup change', function() {
-          console.log('In equivalents keyup change')
+        /*
+			Amount Field On Blur Handler
+		*/
+        $('#the_form input[name^=amount]').on('blur', function() {
           var tr = $(this).closest('tr');
-          var amount = $('input[name^=amount]', tr);
+          console.log('In amount blur handler'+ tr.attr('class'))
+
+          current_class = tr.attr('class')
+          var compare_class_id = current_class.localeCompare('initialRow');
           var fw = $('input[name^=fw]', tr);
+          var amount = $('input[name^=amount]', tr);
           var moles = $('input[name^=moles]', tr);
-          var moles1 = $('#the_form input[name=moles1_number]');
-          var equiv = $('input[name^=equivalents]', tr);
-
-          console.log('Geet-1')
-          console.log(equiv.val())
-          console.log(fw.val())
-          console.log(moles1.val())
-          console.log('Geet-2')
-          if (equiv.val() && fw.val() && moles1.val()) {
-            console.log('mole values are being set.')
-            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-            fw.change();
+          if(fw.val() && amount.val()) {
+            var moles_1 = amount.val() / fw.val()
+            console.log(moles_1)
+            if (!moles.val()) {
+              moles.val(moles_1.toFixed(nFixed))
+            }
           }
-        });*/
-        // JN CODE
 
-        // Vijay changes 25 Mar
+          if (moles.val() && fw.val() && amount.val && (compare_class_id == 0))  {
+            my_widget_script.enable_all_records()
+          }
 
-        $('#the_form input[name^=amount]').on('focus', function() {
+          // for rows greater than 1
+          if ( (amount.val()) && (fw.val()) && (compare_class_id != 0)) {
+            var equiv = $('input[name^=equivalents]', tr);
+            var moles1 = $('#the_form input[name=moles1_number]');
+            moles.val((amount.val() / fw.val()).toFixed(nFixed));
+            var moles = $('input[name^=moles]', tr);
+            equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
+          }
+        });
+
+        /*
+			Amount Field On Change Handler
+		*/
+        $('#the_form input[name^=amount]').on('change', function() {
           var tr = $(this).closest('tr');
-          console.log('In amount on focus' + ' ' + tr.attr('class'))
-        }),
+          console.log('In amount change handler'+ tr.attr('class'))
+          current_class = tr.attr('class')
+          var compare_class_id = current_class.localeCompare('initialRow');
 
-            $('#the_form input[name^=amount]').on('change', function() {
-              console.log('In amount on change')
-            }),
+          if (compare_class_id == 0) {
+            console.log('Row 1 amount has changed, change row 1 moles and change amount, moles for rest of rows')
+            var amount = $('input[name^=amount]', tr);
+            var fw = $('input[name^=fw]', tr);
+            var moles = $('input[name^=moles]', tr);
+            if (amount.val() && fw.val()) {
+              moles.val((amount.val() / fw.val()).toFixed(nFixed))
+            }
+            // Change moles and amount for all enabled rows where value exists
+            my_widget_script.change_record_value()
+          }
+        });
 
-            // Amount blur handling
-            $('#the_form input[name^=amount]').on('blur', function() {
-              console.log('Amount field on blur')
-
-              // Case fw field is filled and moles field is empty
-              var tr = $(this).closest('tr');
-              current_class = tr.attr('class')
-              var compare_class_id = current_class.localeCompare('initialRow');
-              var fw = $('input[name^=fw]', tr);
-              var amount = $('input[name^=amount]', tr);
-              var moles = $('input[name^=moles]', tr);
-              if(fw.val() && amount.val()) {
-                var moles_1 = amount.val() / fw.val()
-                console.log(moles_1)
-                if (!moles.val()) {
-                  moles.val(moles_1.toFixed(nFixed))
-                }
-              }
-
-              // enable all the rows as all important values for row 1 are filled
-              if (moles.val() && fw.val() && amount.val && (compare_class_id == 0))  {
-                my_widget_script.enable_all_records()
-              }
-
-              // Check if fw is present and this is not first row, then calculate moles and eq
-              var equiv = $('input[name^=equivalents]', tr);
-              if ( (amount.val()) && (fw.val()) && (compare_class_id != 0)) {
-                var equiv = $('input[name^=equivalents]', tr);
-                var moles1 = $('#the_form input[name=moles1_number]');
-                moles.val((amount.val() / fw.val()).toFixed(nFixed));
-                var moles = $('input[name^=moles]', tr);
-                equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
-              }
-            });
-
-        // FW blur handling
+        /*
+			FW Field On Blur Handler
+		*/
         $('#the_form input[name^=fw]').on('blur', function() {
-          console.log('FW field on blur')
+          console.log('In fw blur handler')
           var tr = $(this).closest('tr');
           current_class = tr.attr('class')
           var compare_class_id = current_class.localeCompare('initialRow');
@@ -208,19 +163,12 @@ my_widget_script =
           var moles = $('input[name^=moles]', tr);
           var equiv = $('input[name^=equivalents]', tr);
 
-          console.log('Log-1')
-          console.log(amount.val())
-          console.log('Log-2')
-
           if (!(amount.val())) {
             //if (amount.val().length == '0') {
-            console.log('WHy????????')
             console.log('amount field not empty')
-            //if (!moles.val()) {
-            if (moles.val().length != '0') {
+            if (moles.val()) {
               console.log('moles field is not empty')
-              var amount_1 = moles.val() * fw.val()
-              amount.val(amount_1.toFixed(nFixed))
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
             }
           } else {
             // Fw and amount are present, compute moles and equiv
@@ -251,9 +199,34 @@ my_widget_script =
           }
         });
 
-        // Moles blur handling
+        /*
+			FW Field On Change Handler
+		*/
+        $('#the_form input[name^=fw]').on('change', function() {
+          var tr = $(this).closest('tr');
+          console.log('In FW change handler'+ tr.attr('class'))
+          current_class = tr.attr('class')
+          var compare_class_id = current_class.localeCompare('initialRow');
+
+          if (compare_class_id != 0) {
+            console.log('recalculate amount and moles for this row only')
+            var moles = $('input[name^=moles]', tr);
+            var amount = $('input[name^=amount]', tr);
+            var fw = $('input[name^=fw]', tr);
+            var equiv = $('input[name^=equivalents]', tr);
+            if (moles.val() && fw.val() && equiv.val()) {
+              var moles1 = $('#the_form input[name=moles1_number]');
+              moles.val((moles1.val() * equiv.val()).toFixed(nFixed)); // This is not needed as changing FW has no effect on moles calculation.
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+            }
+          }
+        });
+
+        /*
+			Moles Field On Blur Handler
+		*/
         $('#the_form input[name^=moles]').on('blur', function() {
-          console.log('Moles field on blur')
+          console.log('In moles blur handler')
           var tr = $(this).closest('tr');
           current_class = tr.attr('class')
           var compare_class_id = current_class.localeCompare('initialRow');
@@ -261,18 +234,9 @@ my_widget_script =
           var amount = $('input[name^=amount]', tr);
           var moles = $('input[name^=moles]', tr);
 
-          //if (fw.val().length == '0') {
-          if (!fw.val()) {
-            console.log('fw field is empty')
-          } else {
+          if (fw.val() && moles.val() && !amount.val()) {
             console.log('fw field is not empty')
-            //if (amount.val().length == 0 ) {
-            if (!amount.val()) {
-              if (moles.val()) {
-                amount.val((moles.val() * fw.val()).toFixed(nFixed))
-              }
-            }
-            //}
+            amount.val((moles.val() * fw.val()).toFixed(nFixed))
           }
 
           // Enable rest of the records of the experiment; if there moles and fw value exist for row
@@ -281,23 +245,63 @@ my_widget_script =
           }
         });
 
-        // Equivalence blur handling
-        $('#the_form input[name^=equivalents]').on('blur', function() {
-          console.log('In equivalents blur change')
+        /*
+			Moles Field On Change Handler
+		*/
+        $('#the_form input[name^=moles]').on('change', function() {
+          var tr = $(this).closest('tr');
+          console.log('In moles change handler'+ tr.attr('class'))
+          current_class = tr.attr('class')
+          var compare_class_id = current_class.localeCompare('initialRow');
 
+          if (compare_class_id == 0) {
+            console.log('Row 1 moles has changed, change row 1 amount and change amount, moles for rest of rows')
+            var amount = $('input[name^=amount]', tr);
+            var fw = $('input[name^=fw]', tr);
+            var moles = $('input[name^=moles]', tr);
+            if (moles.val() && fw.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+            }
+
+            // Change moles and amount for all enabled rows where value exists
+            my_widget_script.change_record_value()
+          }
+        });
+
+        /*
+			Equivalence Field On Change Handler
+		*/
+        $('#the_form input[name^=equivalents]').on('change', function() {
+          console.log('In equivalents change handler')
           var tr = $(this).closest('tr');
           var fw = $('input[name^=fw]', tr);
           var equiv = $('input[name^=equivalents]', tr);
           var amount = $('input[name^=amount]', tr);
           var moles = $('input[name^=moles]', tr);
-          if (fw.val() && !amount.val() && !moles.val()) {
-            console.log('FW exists calculate moles and amount')
-            var moles1 = $('#the_form input[name=moles1_number]');
+          var moles1 = $('#the_form input[name=moles1_number]');
+          if (fw.val() && moles1.val() && equiv.val()) {
             moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
             amount.val((moles.val() * fw.val()).toFixed(nFixed))
           }
         });
-        // Vijay changes 25 Mar
+
+        /*
+			Equivalence Field On Blur Handler
+		*/
+        $('#the_form input[name^=equivalents]').on('blur', function() {
+          console.log('In equivalents blur handler')
+          var tr = $(this).closest('tr');
+          var fw = $('input[name^=fw]', tr);
+          var equiv = $('input[name^=equivalents]', tr);
+          var amount = $('input[name^=amount]', tr);
+          var moles = $('input[name^=moles]', tr);
+          var moles1 = $('#the_form input[name=moles1_number]');
+          if (fw.val() && !amount.val() && !moles.val()) {
+            console.log('FW exists calculate moles and amount')
+            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+            amount.val((moles.val() * fw.val()).toFixed(nFixed))
+          }
+        });
       },
 
       to_json:function () {
@@ -346,324 +350,52 @@ my_widget_script =
         return this.parent_class.reset_edited();
       },
 
-      enable_all_records:function () {
-        console.log('In enable_all_records')
-        my_widget_script.enable_records_2()
-        my_widget_script.enable_records_3()
-        my_widget_script.enable_records_4()
-        my_widget_script.enable_records_5()
-        my_widget_script.enable_records_6()
-        my_widget_script.enable_records_7()
-        my_widget_script.enable_records_8()
-        my_widget_script.enable_records_9()
-        my_widget_script.enable_records_10()
-      },
-
-      enable_records_2: function() {
-        if ($('#row2_substance input').prop('disabled') == true) {
-          $('#row2_substance input').prop('disabled', false)
-        }
-
-        if ($('#row2_amount input').prop('disabled') == true) {
-          $('#row2_amount input').prop('disabled', false)
-        }
-
-        if ($('#row2_fw input').prop('disabled') == true) {
-          $('#row2_fw input').prop('disabled', false)
-        }
-
-        if ($('#row2_moles input').prop('disabled') == true) {
-          $('#row2_moles input').prop('disabled', false)
-        }
-
-        if ($('#row2_equiv input').prop('disabled') == true) {
-          $('#row2_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row2_volumes input').prop('disabled') == true) {
-          $('#row2_volumes input').prop('disabled', false)
-        }
-
-
-        if ($('#row2_density input').prop('disabled') == true) {
-          $('#row2_density input').prop('disabled', false)
-        }
-
-        if ($('#row2_comments input').prop('disabled') == true) {
-          $('#row2_comments input').prop('disabled', false)
+      /*
+			Enable all records if the first record fiels is correctly filled
+	  */
+      enable_all_records: function() {
+        console.log('**** In enable_all_records ****')
+        var observationsArray = ['2', '3', '4', '5', '6', '7', '8', '9', '10']
+        for (var i = 0; i < observationsArray.length; i++) {
+          var attributesArray = [
+            '_substance ',
+            '_amount ',
+            '_fw ',
+            '_moles ',
+            '_equiv ',
+            '_volumes ',
+            '_density ',
+            '_comments '
+          ]
+          for (var j = 0; j < attributesArray.length; j++) {
+            var cell = '#row' + observationsArray[i] + attributesArray[j] + 'input'
+            if ($(cell).prop('disabled') == true) {
+              $(cell).prop('disabled', false)
+            }
+          }
         }
       },
 
-      enable_records_3: function() {
-        if ($('#row3_substance input').prop('disabled') == true) {
-          $('#row3_substance input').prop('disabled', false)
-        }
 
-        if ($('#row3_amount input').prop('disabled') == true) {
-          $('#row3_amount input').prop('disabled', false)
-        }
+      /*
+          Change all record when amount or moles of firsr record is changed
+      */
+      change_record_value: function() {
+        console.log('**** change_record_value ****')
+        var observationsArray = ['2', '3', '4', '5', '6', '7', '8', '9', '10']
+        for (var i = 0; i < observationsArray.length; i++) {
 
-        if ($('#row3_fw input').prop('disabled') == true) {
-          $('#row3_fw input').prop('disabled', false)
-        }
-
-        if ($('#row3_moles input').prop('disabled') == true) {
-          $('#row3_moles input').prop('disabled', false)
-        }
-
-        if ($('#row3_equiv input').prop('disabled') == true) {
-          $('#row3_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row3_volumes input').prop('disabled') == true) {
-          $('#row3_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row3_density input').prop('disabled') == true) {
-          $('#row3_density input').prop('disabled', false)
-        }
-
-        if ($('#row3_comments input').prop('disabled') == true) {
-          $('#row3_comments input').prop('disabled', false)
+          var moles = $('#the_form input[name=moles' + observationsArray[i] + '_number]')
+          var amount = $('#the_form input[name=amount' + observationsArray[i] + '_number]')
+          var fw = $('#the_form input[name=fw' + observationsArray[i] + '_number]')
+          var equiv = $('#the_form input[name=equivalents' + observationsArray[i] + '_number]')
+          if (fw.val()) {
+            var moles1 = $('#the_form input[name=moles1_number]');
+            moles.val((moles1.val() * equiv.val()).toFixed(2));
+            amount.val((moles.val() * fw.val()).toFixed(2))
+          }
         }
       },
 
-      enable_records_4: function() {
-        if ($('#row4_substance input').prop('disabled') == true) {
-          $('#row4_substance input').prop('disabled', false)
-        }
-
-        if ($('#row4_amount input').prop('disabled') == true) {
-          $('#row4_amount input').prop('disabled', false)
-        }
-
-        if ($('#row4_fw input').prop('disabled') == true) {
-          $('#row4_fw input').prop('disabled', false)
-        }
-
-        if ($('#row4_moles input').prop('disabled') == true) {
-          $('#row4_moles input').prop('disabled', false)
-        }
-
-        if ($('#row4_equiv input').prop('disabled') == true) {
-          $('#row4_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row4_volumes input').prop('disabled') == true) {
-          $('#row4_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row4_density input').prop('disabled') == true) {
-          $('#row4_density input').prop('disabled', false)
-        }
-
-        if ($('#row4_comments input').prop('disabled') == true) {
-          $('#row4_comments input').prop('disabled', false)
-        }
-      },
-
-      enable_records_5: function() {
-        if ($('#row5_substance input').prop('disabled') == true) {
-          $('#row5_substance input').prop('disabled', false)
-        }
-
-        if ($('#row5_amount input').prop('disabled') == true) {
-          $('#row5_amount input').prop('disabled', false)
-        }
-
-        if ($('#row5_fw input').prop('disabled') == true) {
-          $('#row5_fw input').prop('disabled', false)
-        }
-
-        if ($('#row5_moles input').prop('disabled') == true) {
-          $('#row5_moles input').prop('disabled', false)
-        }
-
-        if ($('#row5_equiv input').prop('disabled') == true) {
-          $('#row5_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row5_volumes input').prop('disabled') == true) {
-          $('#row5_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row5_density input').prop('disabled') == true) {
-          $('#row5_density input').prop('disabled', false)
-        }
-
-        if ($('#row5_comments input').prop('disabled') == true) {
-          $('#row5_comments input').prop('disabled', false)
-        }
-      },
-
-      enable_records_6: function() {
-        if ($('#row6_substance input').prop('disabled') == true) {
-          $('#row6_substance input').prop('disabled', false)
-        }
-
-        if ($('#row6_amount input').prop('disabled') == true) {
-          $('#row6_amount input').prop('disabled', false)
-        }
-
-        if ($('#row6_fw input').prop('disabled') == true) {
-          $('#row6_fw input').prop('disabled', false)
-        }
-
-        if ($('#row6_moles input').prop('disabled') == true) {
-          $('#row6_moles input').prop('disabled', false)
-        }
-
-        if ($('#row6_equiv input').prop('disabled') == true) {
-          $('#row6_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row6_volumes input').prop('disabled') == true) {
-          $('#row6_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row6_density input').prop('disabled') == true) {
-          $('#row6_density input').prop('disabled', false)
-        }
-
-        if ($('#row6_comments input').prop('disabled') == true) {
-          $('#row6_comments input').prop('disabled', false)
-        }
-      },
-
-      enable_records_7: function() {
-        if ($('#row7_substance input').prop('disabled') == true) {
-          $('#row7_substance input').prop('disabled', false)
-        }
-
-        if ($('#row7_amount input').prop('disabled') == true) {
-          $('#row7_amount input').prop('disabled', false)
-        }
-
-        if ($('#row7_fw input').prop('disabled') == true) {
-          $('#row7_fw input').prop('disabled', false)
-        }
-
-        if ($('#row7_moles input').prop('disabled') == true) {
-          $('#row7_moles input').prop('disabled', false)
-        }
-
-        if ($('#row7_equiv input').prop('disabled') == true) {
-          $('#row7_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row7_volumes input').prop('disabled') == true) {
-          $('#row7_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row7_density input').prop('disabled') == true) {
-          $('#row7_density input').prop('disabled', false)
-        }
-
-        if ($('#row7_comments input').prop('disabled') == true) {
-          $('#row7_comments input').prop('disabled', false)
-        }
-      },
-
-      enable_records_8: function() {
-        if ($('#row8_substance input').prop('disabled') == true) {
-          $('#row8_substance input').prop('disabled', false)
-        }
-
-        if ($('#row8_amount input').prop('disabled') == true) {
-          $('#row8_amount input').prop('disabled', false)
-        }
-
-        if ($('#row8_fw input').prop('disabled') == true) {
-          $('#row8_fw input').prop('disabled', false)
-        }
-
-        if ($('#row8_moles input').prop('disabled') == true) {
-          $('#row8_moles input').prop('disabled', false)
-        }
-
-        if ($('#row8_equiv input').prop('disabled') == true) {
-          $('#row8_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row8_volumes input').prop('disabled') == true) {
-          $('#row8_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row8_density input').prop('disabled') == true) {
-          $('#row8_density input').prop('disabled', false)
-        }
-
-        if ($('#row8_comments input').prop('disabled') == true) {
-          $('#row8_comments input').prop('disabled', false)
-        }
-      },
-
-      enable_records_9: function() {
-        if ($('#row9_substance input').prop('disabled') == true) {
-          $('#row9_substance input').prop('disabled', false)
-        }
-
-        if ($('#row9_amount input').prop('disabled') == true) {
-          $('#row9_amount input').prop('disabled', false)
-        }
-
-        if ($('#row9_fw input').prop('disabled') == true) {
-          $('#row9_fw input').prop('disabled', false)
-        }
-
-        if ($('#row9_moles input').prop('disabled') == true) {
-          $('#row9_moles input').prop('disabled', false)
-        }
-
-        if ($('#row9_equiv input').prop('disabled') == true) {
-          $('#row9_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row9_volumes input').prop('disabled') == true) {
-          $('#row9_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row9_density input').prop('disabled') == true) {
-          $('#row9_density input').prop('disabled', false)
-        }
-
-        if ($('#row9_comments input').prop('disabled') == true) {
-          $('#row9_comments input').prop('disabled', false)
-        }
-      },
-
-      enable_records_10: function() {
-        if ($('#row10_substance input').prop('disabled') == true) {
-          $('#row10_substance input').prop('disabled', false)
-        }
-
-        if ($('#row10_amount input').prop('disabled') == true) {
-          $('#row10_amount input').prop('disabled', false)
-        }
-
-        if ($('#row10_fw input').prop('disabled') == true) {
-          $('#row10_fw input').prop('disabled', false)
-        }
-
-        if ($('#row10_moles input').prop('disabled') == true) {
-          $('#row10_moles input').prop('disabled', false)
-        }
-
-        if ($('#row10_equiv input').prop('disabled') == true) {
-          $('#row10_equiv input').prop('disabled', false)
-        }
-
-        if ($('#row10_volumes input').prop('disabled') == true) {
-          $('#row10_volumes input').prop('disabled', false)
-        }
-
-        if ($('#row10_density input').prop('disabled') == true) {
-          $('#row10_density input').prop('disabled', false)
-        }
-
-        if ($('#row10_comments input').prop('disabled') == true) {
-          $('#row10_comments input').prop('disabled', false)
-        }
-      },
 
     }
