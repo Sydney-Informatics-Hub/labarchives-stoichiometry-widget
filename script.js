@@ -46,15 +46,11 @@ my_widget_script =
         // Number of attributes in each record
         var nAttributes = 8;
 
-        //my_widget_script.from_json((typeof(json_data) === 'function') ? json_data() : json_data);
-
         moledata = '';
         fwdata = '';
 
         var json_obj = eval(json_data);
         if (json_obj) {
-          //console.log(json_obj.length)
-          //for (var i=0; i<json_obj.length; i++) {
           for (var i=0; i<nAttributes; i++) {
             //console.log(json_obj[i].name)
             if (json_obj[i].name == 'moles1_number') {
@@ -164,7 +160,6 @@ my_widget_script =
           var equiv = $('input[name^=equivalents]', tr);
 
           if (!(amount.val())) {
-            //if (amount.val().length == '0') {
             console.log('amount field not empty')
             if (moles.val()) {
               console.log('moles field is not empty')
@@ -174,7 +169,6 @@ my_widget_script =
             // Fw and amount are present, compute moles and equiv
             console.log('amount field is not empty')
             var moles_1 = amount.val() / fw.val()
-            console.log(moles_1)
             moles.val(moles_1.toFixed(nFixed))
             // if not row-1 calculate equiv value too
             if (compare_class_id != 0) {
@@ -351,7 +345,7 @@ my_widget_script =
       },
 
       /*
-			Enable all records if the first record fiels is correctly filled
+			Enable all records if the first record fields are correctly filled
 	  */
       enable_all_records: function() {
         console.log('**** In enable_all_records ****')
@@ -378,13 +372,12 @@ my_widget_script =
 
 
       /*
-          Change all record when amount or moles of firsr record is changed
+          Change all record when amount or moles of first record is changed
       */
       change_record_value: function() {
         console.log('**** change_record_value ****')
         var observationsArray = ['2', '3', '4', '5', '6', '7', '8', '9', '10']
         for (var i = 0; i < observationsArray.length; i++) {
-
           var moles = $('#the_form input[name=moles' + observationsArray[i] + '_number]')
           var amount = $('#the_form input[name=amount' + observationsArray[i] + '_number]')
           var fw = $('#the_form input[name=fw' + observationsArray[i] + '_number]')
