@@ -43,8 +43,8 @@ For row 1, the behaviour is as below -
 
 |  User Changes  | Automatically Calculated |
 | ------------- | ------------- |
-| amt  | mol and amt are recalculated for all rows, greater than 1, which have valid values |
-| mol  | mol and amt are recalculated for all rows, greater than 1, which have valid values |
+| amt  | mol and amt are recalculated for all rows which have valid values |
+| mol  | mol and amt are recalculated for all rows  which have valid values |
 
 For rows greater than 1, the behaviour is as below - 
 
