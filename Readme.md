@@ -1,9 +1,10 @@
 
-The Readme is to detail the behaviour expected from the Stochiometry widget. Stochiometry widget is to 
+The Readme is to detail the data entry process and the behaviour expected from the Stochiometry widget. Stochiometry widget is to 
 aid a researcher to automatically calculate inter-related values when a dependent value 
 in a chemical equation is changed. The stochiomtery widget can be added to a LabArchive Notebook page. 
 
-The user inputs to the Stochiometry widget and the subsequent results are documented as below - 
+The permitted user inputs to the Stochiometry widget and the subsequent results are documented for the following 
+two scenarios - 
 
 1. When first entering data into the table
 2. When changing the values of the experiment
@@ -34,6 +35,7 @@ For all non-initial rows for initial entry, the permitted ways of entering value
 | fw then equiv  | mol and amt |
 | fw then amt | mol and equiv  |
 | amt then fw  | mol and equiv  |
+| equiv  | mol  |
 
 Once the first row and the rows needed for experiment are filled, add the Stochiometry to the page.
 

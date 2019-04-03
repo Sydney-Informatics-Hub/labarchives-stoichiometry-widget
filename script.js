@@ -95,9 +95,12 @@ my_widget_script =
           } else {
             var equiv = $('input[name^=equivalents]', tr);
             var moles1 = $('#the_form input[name=moles1_number]');
+            var moles = $('input[name^=moles]', tr);
             if (fw.val()) {
               moles.val((amount.val() / fw.val()).toFixed(nFixed));
               equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
+            } else if (moles.val()) {
+              fw.val((amount.val() / moles.val()).toFixed(nFixed));
             }
           }
         }),
@@ -172,6 +175,13 @@ my_widget_script =
               if (fw.val() && moles1.val() && equiv.val()) {
                 moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
                 amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              }
+
+              // If not first row, then calculate moles if moles_1 field is there
+              if (!is_initial_row) {
+                if (moles1.val()) {
+                  moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+                }
               }
             });
       },
