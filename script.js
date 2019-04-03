@@ -85,7 +85,6 @@ my_widget_script =
           var moles = $('input[name^=moles]', tr);
 
           if (is_initial_row) {
-            //if (fw.val() && amount.val() && !moles.val()) {
             if (fw.val() && !moles.val()) {
               moles.val((amount.val() / fw.val()).toFixed(nFixed))
               my_widget_script.enable_all_records()
@@ -96,8 +95,7 @@ my_widget_script =
           } else {
             var equiv = $('input[name^=equivalents]', tr);
             var moles1 = $('#the_form input[name=moles1_number]');
-            //if (fw.val() && amount.val() /*&& !moles.val() && !equiv.val()*/) {
-            if (fw.val() /*&& amount.val() && !moles.val() && !equiv.val()*/) {
+            if (fw.val()) {
               moles.val((amount.val() / fw.val()).toFixed(nFixed));
               equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
             }
@@ -113,11 +111,8 @@ my_widget_script =
               var moles = $('input[name^=moles]', tr);
               if (is_initial_row) {
                 if (amount.val() && !moles.val()) {
-                  console.log('Samta0')
                   moles.val((amount.val() / fw.val()).toFixed(nFixed))
-                  //my_widget_script.enable_all_records()
                 } else if (moles.val() && !amount.val()) {
-                  console.log('Samta1')
                   amount.val((moles.val() * fw.val()).toFixed(nFixed))
                 }
                 if (amount.val() && moles.val()) {
@@ -127,11 +122,9 @@ my_widget_script =
                 var equiv = $('input[name^=equivalents]', tr);
                 var moles1 = $('#the_form input[name=moles1_number]');
                 if (amount.val() && !equiv.val()) {
-                  // calculate moles and equiv
                   moles.val((amount.val() / fw.val()).toFixed(nFixed))
                   equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
                 } else if ((equiv.val() && !amount.val()) || (equiv.val() && amount.val())) {
-                  // calculate moles and amt
                   moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
                   var value = $('input[name^=moles]', tr);
                   amount.val((value.val() * fw.val()).toFixed(nFixed))
@@ -168,14 +161,15 @@ my_widget_script =
               var moles1 = $('#the_form input[name=moles1_number]');
               var is_initial_row = tr.attr('class') == 'initialRow';
 
-              // if fw, equiv exists, calculate amt and moles when they are not exist
-              if (fw.val() && !amount.val() && !moles.val() && !is_initial_row) {
+              // if fw, equiv exists, calculate amt and moles when they are not exist for rows greater than 1
+              if (fw.val() && !amount.val() && !moles.val()) {
                 console.log('FW exists calculate moles and amount')
                 moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
                 amount.val((moles.val() * fw.val()).toFixed(nFixed))
               }
 
-              if (fw.val() && moles1.val() && equiv.val() && !is_initial_row) {
+              // Re-calculate ant and moles when equiv value is changed for rows greater than 1
+              if (fw.val() && moles1.val() && equiv.val()) {
                 moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
                 amount.val((moles.val() * fw.val()).toFixed(nFixed))
               }
@@ -212,13 +206,11 @@ my_widget_script =
         //LA calls this method with b_suppress_message and relies on your code to communicate issues to the user
         //Returning an empty array [] or NULL equals no error
         //TO DO write code specific to your form
-        console.log('In is_valid:function')
         return this.parent_class.is_valid(b_suppress_message);
       },
 
       is_edited:function () {
         //should return true if the form has been edited since it was loaded or since reset_edited was called
-        console.log('In is_edited:function')
         return this.parent_class.is_edited();
       },
 
