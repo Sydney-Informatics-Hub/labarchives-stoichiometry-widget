@@ -43,9 +43,6 @@ my_widget_script =
         //TO DO write code specific to your form
         console.log('init function call starts')
 
-        // Number of attributes in each record
-        var nAttributes = 8;
-
         // Precision for floats
         var nFixed = 2;
 
@@ -240,7 +237,7 @@ my_widget_script =
           var amount = $('input[name^=amount]', this)
           var fw = $('input[name^=fw]', this)
           var equiv = $('input[name^=equivalents]', this)
-          if (fw.val()) {
+          if (fw.val() && equiv.val()) {
             var moles1 = $('#the_form input[name=moles1_number]');
             moles.val((moles1.val() * equiv.val()).toFixed(2));
             amount.val((moles.val() * fw.val()).toFixed(2))
