@@ -41,7 +41,6 @@ my_widget_script =
         //By default it calls the parent_class's init.
 
         //TO DO write code specific to your form
-        console.log('init function call starts')
 
         // Precision for floats
         var nFixed = 2;
@@ -75,7 +74,6 @@ my_widget_script =
 
         $('#the_form input[name^=amount]').on('change', function() {
           var tr = $(this).closest('tr');
-          console.log('In amount change handler '+ tr.attr('class'))
           var is_initial_row = tr.attr('class') == 'initialRow';
           var fw = $('input[name^=fw]', tr);
           var amount = $('input[name^=amount]', tr);
@@ -104,13 +102,14 @@ my_widget_script =
 
         $('#the_form input[name^=fw]').on('change', function() {
           var tr = $(this).closest('tr');
-          console.log('In fw change handler '+ tr.attr('class'))
           var is_initial_row = tr.attr('class') == 'initialRow';
           var fw = $('input[name^=fw]', tr);
           var amount = $('input[name^=amount]', tr);
           var moles = $('input[name^=moles]', tr);
           if (is_initial_row) {
-            if (amount.val() && !moles.val()) {
+            if (amount.val() && moles.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+            } else if (amount.val() && !moles.val()) {
               moles.val((amount.val() / fw.val()).toFixed(nFixed))
             } else if (moles.val() && !amount.val()) {
               amount.val((moles.val() * fw.val()).toFixed(nFixed))
@@ -133,7 +132,6 @@ my_widget_script =
 
         $('#the_form input[name^=moles]').on('change', function() {
           var tr = $(this).closest('tr');
-          console.log('In moles change handler '+ tr.attr('class'))
           var is_initial_row = tr.attr('class') == 'initialRow';
           var fw = $('input[name^=fw]', tr);
           var amount = $('input[name^=amount]', tr);
@@ -151,7 +149,6 @@ my_widget_script =
 
         // Equivalents Field On Change Handler
         $('#the_form input[name^=equivalents]').on('change', function() {
-          console.log('In equivalents change handler')
           var tr = $(this).closest('tr');
           var fw = $('input[name^=fw]', tr);
           var equiv = $('input[name^=equivalents]', tr);
@@ -162,9 +159,7 @@ my_widget_script =
 
           /* if fw, equiv exists, calculate amt and moles when they are not filled for rows greater than 1 or
              Re-calculate amt and moles when equiv value is changed for rows greater than 1 */
-
           if (fw.val()) {
-            console.log('FW exists calculate moles and amount')
             moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
             amount.val((moles.val() * fw.val()).toFixed(nFixed))
           }
@@ -224,13 +219,11 @@ my_widget_script =
 
       // Enable all records if the first record fields are correctly filled
       enable_all_records: function() {
-        console.log('**** In enable_all_records ****')
         $('#the_form tbody tr:not(.initialRow) input').prop('disabled', false)
       },
 
       // Change all record when amount or moles of first record is changed
       change_record_value: function() {
-        console.log('**** change_record_value ****')
         $('#the_form tbody tr:not(.initialRow)').each(function() {
           var moles = $('input[name^=moles]', this)
           var amount = $('input[name^=amount]', this)
