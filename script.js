@@ -124,10 +124,9 @@ my_widget_script =
             if (amount.val() && !equiv.val()) {
               moles.val((amount.val() / fw.val()).toFixed(nFixed))
               equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
-            } else if ((equiv.val() && !amount.val()) || (equiv.val() && amount.val())) {
+            } else if (equiv.val()) {
               moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-              var value = $('input[name^=moles]', tr);
-              amount.val((value.val() * fw.val()).toFixed(nFixed))
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
             }
           }
         });
