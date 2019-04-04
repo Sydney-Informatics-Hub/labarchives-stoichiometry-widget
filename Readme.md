@@ -1,6 +1,6 @@
 
-The Readme is to detail the data entry process and the behaviour expected from the Stochiometry widget. Stochiometry widget is to 
-aid a researcher to automatically calculate inter-related values when a dependent value 
+The Readme is to detail the data entry process and the behaviour expected from the Stochiometry widget for LabArchives eNotebook. 
+Stochiometry widget is to aid a researcher to automatically calculate inter-related values when a dependent value 
 in a chemical equation is changed. The stochiomtery widget can be added to a LabArchive Notebook page. 
 
 The permitted user inputs to the Stochiometry widget and the subsequent results are documented for the following 

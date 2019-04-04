@@ -103,87 +103,83 @@ my_widget_script =
               fw.val((amount.val() / moles.val()).toFixed(nFixed));
             }
           }
-        }),
+        });
 
-            $('#the_form input[name^=fw]').on('change', function() {
-              var tr = $(this).closest('tr');
-              console.log('In fw change handler '+ tr.attr('class'))
-              var is_initial_row = tr.attr('class') == 'initialRow';
-              var fw = $('input[name^=fw]', tr);
-              var amount = $('input[name^=amount]', tr);
-              var moles = $('input[name^=moles]', tr);
-              if (is_initial_row) {
-                if (amount.val() && !moles.val()) {
-                  moles.val((amount.val() / fw.val()).toFixed(nFixed))
-                } else if (moles.val() && !amount.val()) {
-                  amount.val((moles.val() * fw.val()).toFixed(nFixed))
-                }
-                if (amount.val() && moles.val()) {
-                  my_widget_script.enable_all_records()
-                }
-              } else {
-                var equiv = $('input[name^=equivalents]', tr);
-                var moles1 = $('#the_form input[name=moles1_number]');
-                if (amount.val() && !equiv.val()) {
-                  moles.val((amount.val() / fw.val()).toFixed(nFixed))
-                  equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
-                } else if ((equiv.val() && !amount.val()) || (equiv.val() && amount.val())) {
-                  moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-                  var value = $('input[name^=moles]', tr);
-                  amount.val((value.val() * fw.val()).toFixed(nFixed))
-                }
-              }
-            }),
+        $('#the_form input[name^=fw]').on('change', function() {
+          var tr = $(this).closest('tr');
+          console.log('In fw change handler '+ tr.attr('class'))
+          var is_initial_row = tr.attr('class') == 'initialRow';
+          var fw = $('input[name^=fw]', tr);
+          var amount = $('input[name^=amount]', tr);
+          var moles = $('input[name^=moles]', tr);
+          if (is_initial_row) {
+            if (amount.val() && !moles.val()) {
+              moles.val((amount.val() / fw.val()).toFixed(nFixed))
+            } else if (moles.val() && !amount.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+            }
+            if (amount.val() && moles.val()) {
+              my_widget_script.enable_all_records()
+            }
+          } else {
+            var equiv = $('input[name^=equivalents]', tr);
+            var moles1 = $('#the_form input[name=moles1_number]');
+            if (amount.val() && !equiv.val()) {
+              moles.val((amount.val() / fw.val()).toFixed(nFixed))
+              equiv.val((amount.val() / fw.val() / moles1.val()).toFixed(nFixed))
+            } else if ((equiv.val() && !amount.val()) || (equiv.val() && amount.val())) {
+              moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+              var value = $('input[name^=moles]', tr);
+              amount.val((value.val() * fw.val()).toFixed(nFixed))
+            }
+          }
+        });
 
-            $('#the_form input[name^=moles]').on('change', function() {
-              var tr = $(this).closest('tr');
-              console.log('In moles change handler '+ tr.attr('class'))
-              var is_initial_row = tr.attr('class') == 'initialRow';
-              var fw = $('input[name^=fw]', tr);
-              var amount = $('input[name^=amount]', tr);
-              var moles = $('input[name^=moles]', tr);
-              if (is_initial_row) {
-                if (fw.val() && !amount.val()) {
-                  amount.val((moles.val() * fw.val()).toFixed(nFixed))
-                  my_widget_script.enable_all_records()
-                } else if (fw.val() && amount.val() && moles.val()) {
-                  amount.val((moles.val() * fw.val()).toFixed(nFixed))
-                  my_widget_script.change_record_value()
-                }
-              }
-            }),
+        $('#the_form input[name^=moles]').on('change', function() {
+          var tr = $(this).closest('tr');
+          console.log('In moles change handler '+ tr.attr('class'))
+          var is_initial_row = tr.attr('class') == 'initialRow';
+          var fw = $('input[name^=fw]', tr);
+          var amount = $('input[name^=amount]', tr);
+          var moles = $('input[name^=moles]', tr);
+          if (is_initial_row) {
+            if (fw.val() && !amount.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              my_widget_script.enable_all_records()
+            } else if (fw.val() && amount.val() && moles.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              my_widget_script.change_record_value()
+            }
+          }
+        });
 
-            // Equivalence Field On Change Handler
-            $('#the_form input[name^=equivalents]').on('change', function() {
-              console.log('In equivalents change handler')
-              var tr = $(this).closest('tr');
-              var fw = $('input[name^=fw]', tr);
-              var equiv = $('input[name^=equivalents]', tr);
-              var amount = $('input[name^=amount]', tr);
-              var moles = $('input[name^=moles]', tr);
-              var moles1 = $('#the_form input[name=moles1_number]');
-              var is_initial_row = tr.attr('class') == 'initialRow';
+        // Equivalents Field On Change Handler
+        $('#the_form input[name^=equivalents]').on('change', function() {
+          console.log('In equivalents change handler')
+          var tr = $(this).closest('tr');
+          var fw = $('input[name^=fw]', tr);
+          var equiv = $('input[name^=equivalents]', tr);
+          var amount = $('input[name^=amount]', tr);
+          var moles = $('input[name^=moles]', tr);
+          var moles1 = $('#the_form input[name=moles1_number]');
+          var is_initial_row = tr.attr('class') == 'initialRow';
 
-              // if fw, equiv exists, calculate amt and moles when they are not exist for rows greater than 1
-              if (fw.val() && !amount.val() && !moles.val()) {
-                console.log('FW exists calculate moles and amount')
-                moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-                amount.val((moles.val() * fw.val()).toFixed(nFixed))
-              }
+          /* if fw, equiv exists, calculate amt and moles when they are not filled for rows greater than 1 or
+             Re-calculate amt and moles when equiv value is changed for rows greater than 1 */
 
-              // Re-calculate ant and moles when equiv value is changed for rows greater than 1
-              if (fw.val() && moles1.val() && equiv.val()) {
-                moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-                amount.val((moles.val() * fw.val()).toFixed(nFixed))
-              }
+          if (fw.val()) {
+            console.log('FW exists calculate moles and amount')
+            moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+            amount.val((moles.val() * fw.val()).toFixed(nFixed))
+          }
 
-              // If not first row, then calculate moles if moles_1 field is there
-              if (!is_initial_row) {
-                if (moles1.val()) {
-                  moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
-                }
-              }
-            });
+          // If not first row, then calculate moles if moles_1 field is there
+          if (!is_initial_row) {
+            if (moles1.val()) {
+              moles.val((moles1.val() * equiv.val()).toFixed(nFixed));
+            }
+          }
+        });
       },
 
       to_json:function () {
