@@ -47,6 +47,7 @@ For row 1, the behaviour is as below -
 | ------------- | ------------- |
 | amt  | mol and amt are recalculated for all rows which have valid values |
 | mol  | mol and amt are recalculated for all rows  which have valid values |
+| fw  | amt is recalculated for row 1 |
 
 For rows greater than 1, the behaviour is as below - 
 
