@@ -108,15 +108,15 @@ my_widget_script =
           var moles = $('input[name^=moles]', tr);
           if (is_initial_row) {
             if (amount.val() && moles.val()) {
-                amount.val((moles.val() * fw.val()).toFixed(nFixed))
-                my_widget_script.enable_all_records()
-              } else if (amount.val()) {
-                moles.val((amount.val() / fw.val()).toFixed(nFixed))
-                my_widget_script.enable_all_records()
-              } else if (moles.val()) {
-                amount.val((moles.val() * fw.val()).toFixed(nFixed))
-                my_widget_script.enable_all_records()
-              }
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              my_widget_script.enable_all_records()
+            } else if (amount.val()) {
+              moles.val((amount.val() / fw.val()).toFixed(nFixed))
+              my_widget_script.enable_all_records()
+            } else if (moles.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+              my_widget_script.enable_all_records()
+            }
           } else {
             var equiv = $('input[name^=equivalents]', tr);
             var moles1 = $('#the_form input[name=moles1_number]');
@@ -143,6 +143,18 @@ my_widget_script =
             } else if (fw.val() && amount.val() && moles.val()) {
               amount.val((moles.val() * fw.val()).toFixed(nFixed))
               my_widget_script.change_record_value()
+            }
+          } else {
+            var equiv = $('input[name^=equivalents]', tr);
+            var moles1 = $('#the_form input[name=moles1_number]');
+            if (moles1.val()) {
+              equiv.val((moles.val() / moles1.val()).toFixed(nFixed))
+            }
+            if (fw.val()) {
+              amount.val((moles.val() * fw.val()).toFixed(nFixed))
+            }
+            if (amount.val()) {
+              fw.val((amount.val() / moles.val()).toFixed(nFixed));
             }
           }
         });

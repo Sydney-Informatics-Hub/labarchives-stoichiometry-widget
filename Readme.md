@@ -36,6 +36,9 @@ For all non-initial rows for initial entry, the permitted ways of entering value
 | fw then amt | mol and equiv  |
 | amt then fw  | mol and equiv  |
 | equiv  | mol  |
+| mol  | equiv  |
+| amt then mol  | equiv and fw |
+| fwd then mol  | equiv and amt |
 
 Once the first row and the rows needed for experiment are filled, add the Stochiometry to the page.
 
