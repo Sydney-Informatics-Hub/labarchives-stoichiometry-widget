@@ -1,7 +1,40 @@
 
-The Readme is to detail the data entry process and the behaviour expected from the Stochiometry widget for LabArchives eNotebook. 
-Stochiometry widget is to aid a researcher to automatically calculate inter-related values when a dependent value 
-in a chemical equation is changed. The stochiomtery widget can be added to a LabArchive Notebook page. 
+# LabArchives eNotebook Stoichiometry Table Widget
+
+This widget helps the researcher calculate and document amounts used in reactions for stoichiometry.
+
+The widget can be added to a LabArchive Notebook page.
+
+## Installation
+
+To install, you will need to copy the contents of [`widget.html`](widget.html) and [`script.js`](script.js) into the [Widget Manager](https://labarchives.kayako.com/Knowledgebase/Article/View/409/0/5031-the-widget-manager).
+
+1. Go to the *Widget Manager*
+2. Under *Available Widgets* click *New*
+3. Enter the widget title: *Stoichiometry Table* (or whatever you choose to call it for your notebooks)
+4. In the *Widget HTML Editor* tab, click the *Source* button on the toolbar.
+5. In a new browser window:
+    a. Go to https://github.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/raw/master/widget.html
+    b. *Select All* (find this in the Edit menu)
+    c. *Copy* (find this in the edit menu)
+    d. Close that browser window.
+6. Back in your *Widget HTML Editor*: *Select All* and *Paste*.
+7. Change to the *Script Editor* tab.
+8. In a new browser window:
+    a. Go to https://github.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/raw/master/script.js
+    b. *Select All* (find this in the Edit menu)
+    c. *Copy* (find this in the edit menu)
+    d. Close that browser window.
+9. Back in your *Script Editor*: *Select All* and *Paste*
+10. Click the *Save Widget* button next to the Title entry box.
+
+## Add a Widget into your Notebook
+
+See https://labarchives.kayako.com/knowledgebase/article/View/408/286/501-what-are-widgets
+
+## Expected Behaviour
+
+The software requirements detail expected behaviour for each modification to the table's data.
 
 The permitted user inputs to the Stochiometry widget and the subsequent results are documented for the following 
 two scenarios - 
@@ -9,9 +42,8 @@ two scenarios -
 1. When first entering data into the table
 2. When changing the values of the experiment
 
-# Expected Behaviour
 
-## Initializing the records of the experiment:
+### Initializing the records of the experiment:
 
 On launching the Stochiometry widget to add to the page, only row 1 will be enabled on entry, 
 although subsequent rows will be displayed.
@@ -39,7 +71,7 @@ For all non-initial rows for initial entry, the permitted ways of entering value
 
 Once the first row and the rows needed for experiment are filled, add the Stochiometry to the page.
 
-## Changing the values of the records of the experiment:
+### Changing the values of the records of the experiment:
 
 For row 1, the behaviour is as below - 
 
@@ -57,7 +89,7 @@ For rows greater than 1, the behaviour is as below -
 | equiv  | amt and moles are recalculated for the row for which the equiv was changed  |
 | fw  | amt and moles are recalculated for the row for which the fw was changed  |
 
-## For volume and density fields
+### For volume and density fields
 
 If the user enters density to the experiment, the volume will be automatically calculated by the formula -
 volume = amount / density
