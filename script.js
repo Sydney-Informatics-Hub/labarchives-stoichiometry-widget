@@ -1,6 +1,11 @@
-/* Stoichiometry Widget implemented by Joel Nothman at the Sydney Informatics Hub
+/* Stoichiometry Widget implemented by Joel Nothman and Vijay Raghunath at the Sydney Informatics Hub
+
+Please acknowledge our contribution to your work where appropriate:
+"This research was supported by the Sydney Informatics Hub."
+
 Copyright (c) 2018-9, The University of Sydney
 All rights reserved.
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 1. Redistributions of source code must retain the above copyright
