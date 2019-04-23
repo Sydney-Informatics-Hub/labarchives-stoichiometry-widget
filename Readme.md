@@ -5,6 +5,8 @@ This widget helps the researcher calculate and document amounts used in reaction
 
 The widget can be added to a LabArchive Notebook page.
 
+It was developed by the [Sydney Informatics Hub](https://informatics.sydney.edu.au) from an initial version by [Dr. Samuel Banister](https://sydney.edu.au/science/people/samuel.banister.php).
+
 ## Installation
 
 To install, you will need to copy the contents of [`widget.html`](widget.html) and [`script.js`](script.js) into the [Widget Manager](https://labarchives.kayako.com/Knowledgebase/Article/View/409/0/5031-the-widget-manager).
