@@ -1,4 +1,6 @@
-/* Stoichiometry Widget implemented by Joel Nothman and Vijay Raghunath at the Sydney Informatics Hub
+/* Stoichiometry Table Widget for LabArchives eNotebook
+
+Implemented by Joel Nothman and Vijay Raghunath at the Sydney Informatics Hub.
 
 Please acknowledge our contribution to your work where appropriate:
 "This research was supported by the Sydney Informatics Hub."
