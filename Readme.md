@@ -14,17 +14,17 @@ To install, you will need to copy the contents of [`widget.html`](widget.html) a
 3. Enter the widget title: *Stoichiometry Table* (or whatever you choose to call it for your notebooks)
 4. In the *Widget HTML Editor* tab, click the *Source* button on the toolbar.
 5. In a new browser window:
-    a. Go to https://github.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/raw/master/widget.html
-    b. *Select All* (find this in the Edit menu)
-    c. *Copy* (find this in the edit menu)
-    d. Close that browser window.
+    1. Go to https://github.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/raw/master/widget.html
+    2. *Select All* (find this in the Edit menu)
+    3. *Copy* (find this in the edit menu)
+    4. Close that browser window.
 6. Back in your *Widget HTML Editor*: *Select All* and *Paste*.
 7. Change to the *Script Editor* tab.
 8. In a new browser window:
-    a. Go to https://github.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/raw/master/script.js
-    b. *Select All* (find this in the Edit menu)
-    c. *Copy* (find this in the edit menu)
-    d. Close that browser window.
+    1. Go to https://github.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/raw/master/script.js
+    2. *Select All* (find this in the Edit menu)
+    3. *Copy* (find this in the edit menu)
+    4. Close that browser window.
 9. Back in your *Script Editor*: *Select All* and *Paste*
 10. Click the *Save Widget* button next to the Title entry box.
 
