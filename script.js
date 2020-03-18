@@ -5,7 +5,7 @@ Implemented by Joel Nothman and Vijay Raghunath at the Sydney Informatics Hub.
 Please acknowledge our contribution to your work where appropriate:
 "This research was supported by the Sydney Informatics Hub, funded by the University of Sydney."
 
-Copyright (c) 2018-9, The University of Sydney
+Copyright (c) 2018-2020, The University of Sydney
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
