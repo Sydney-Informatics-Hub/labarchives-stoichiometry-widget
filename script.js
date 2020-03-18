@@ -60,8 +60,8 @@ my_widget_script =
 
         this.parent_class.init(mode, json_data);
 
-        moles1 = $('#the_form input[name=moles1_number]');
-        fw1 = $('#the_form input[name=fw1_number]');
+        moles1 = $('#the_form input[name=moles1]');
+        fw1 = $('#the_form input[name=fw1]');
         if (moles1.val() && fw1.val()) {
           my_widget_script.enable_all_records()
         }
@@ -216,7 +216,7 @@ my_widget_script =
           moles: $(".moles", tr),
           density: $(".density", tr),
           volume: $(".volume", tr),
-          moles1: $('#the_form input.moles[name=moles1_number]'),
+          moles1: $('#the_form input.moles[name=moles1]'),
           is_initial_row: tr.attr('class') == 'initialRow'
         };
       },
