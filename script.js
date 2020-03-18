@@ -85,6 +85,18 @@ my_widget_script =
           return;
         }
 
+        /* Clear button */
+        $('#the_form tr:not(.initialRow) input').on('focus', function() {
+          $(this).closest("tr").append($('<td id="clearcur"></td>').append(
+            $("<a href='#' title='Clear data for this row'>").text("Ⓧ").mousedown(function() {
+              $("input", $(this).closest("tr")).each(function() { $(this).val(""); });
+            })
+          ))
+        }).on('blur', function() {
+          $("#clearcur").remove();
+        });
+
+        /* Other interaction */
         $('#the_form input.amount').on('change', function() {
           var ctx = my_widget_script.get_context(this);
           if (ctx.is_initial_row) {
