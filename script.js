@@ -49,7 +49,11 @@ my_widget_script =
         // returned from a call to to_json or empty if this is a new form.
         //By default it calls the parent_class's init.
 
-        //TO DO write code specific to your form
+		if (mode == "edit" || mode == "edit_dev") {
+			$(".widgetcredit").show();
+		} else {
+			$(".widgetcredit").hide();
+		}
 
         // Precision for floats
         var nFixed = 2;
