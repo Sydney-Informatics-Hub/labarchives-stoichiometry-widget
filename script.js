@@ -105,7 +105,7 @@ my_widget_script =
               my_widget_script.enable_all_records()
             } else if (ctx.fw.val() && ctx.amount.val() && ctx.moles.val()) {
               ctx.moles.val((ctx.amount.val() / ctx.fw.val()).toFixed(nFixed))
-              my_widget_script.update_all_rows()
+              my_widget_script.update_all_records()
             }
           } else {
             if (ctx.fw.val()) {
@@ -115,6 +115,7 @@ my_widget_script =
               ctx.fw.val((ctx.amount.val() / ctx.moles.val()).toFixed(nFixed));
             }
           }
+          my_widget_script.update_volume(ctx);
         });
 
         $('#the_form input.fw').on('change', function() {
@@ -123,12 +124,14 @@ my_widget_script =
             if (ctx.amount.val() && ctx.moles.val()) {
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
               my_widget_script.enable_all_records()
+              my_widget_script.update_volume(ctx);
             } else if (ctx.amount.val()) {
               ctx.moles.val((ctx.amount.val() / ctx.fw.val()).toFixed(nFixed))
               my_widget_script.enable_all_records()
             } else if (ctx.moles.val()) {
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
               my_widget_script.enable_all_records()
+              my_widget_script.update_volume(ctx);
             }
           } else {
             if (ctx.amount.val() && !ctx.equiv.val()) {
@@ -137,6 +140,7 @@ my_widget_script =
             } else if (ctx.equiv.val()) {
               ctx.moles.val((ctx.moles1.val() * ctx.equiv.val()).toFixed(nFixed));
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
+              my_widget_script.update_volume(ctx);
             }
           }
         });
@@ -147,9 +151,11 @@ my_widget_script =
             if (ctx.fw.val() && !ctx.amount.val()) {
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
               my_widget_script.enable_all_records()
+              my_widget_script.update_volume(ctx);
             } else if (ctx.fw.val() && ctx.amount.val() && ctx.moles.val()) {
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
-              my_widget_script.update_all_rows()
+              my_widget_script.update_all_records()
+              my_widget_script.update_volume(ctx);
             }
           } else {
             if (ctx.moles1.val()) {
@@ -157,6 +163,7 @@ my_widget_script =
             }
             if (ctx.fw.val()) {
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
+              my_widget_script.update_volume(ctx);
             }
             if (ctx.amount.val()) {
               ctx.fw.val((ctx.amount.val() / ctx.moles.val()).toFixed(nFixed));
@@ -171,6 +178,7 @@ my_widget_script =
           if (ctx.fw.val()) {
             ctx.moles.val((ctx.moles1.val() * ctx.equiv.val()).toFixed(nFixed));
             ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
+            my_widget_script.update_volume(ctx);
           }
 
           // If not first row, then calculate ctx.moles if moles_1 field is there
@@ -178,6 +186,23 @@ my_widget_script =
             if (ctx.moles1.val()) {
               ctx.moles.val((ctx.moles1.val() * ctx.equiv.val()).toFixed(nFixed));
             }
+          }
+        });
+
+        $('#the_form input.density').on('change', function() {
+          var ctx = my_widget_script.get_context(this);
+          my_widget_script.update_volume(ctx);
+          if (ctx.volume.val() && !ctx.amount.val()) {
+            ctx.amount.val((ctx.volume.val() * ctx.density.val()).toFixed(2));
+            ctx.amount.change();
+          }
+        });
+
+        $('#the_form input.volume').on('change', function() {
+          var ctx = my_widget_script.get_context(this);
+          if (ctx.density.val() && !ctx.amount.val()) {
+            ctx.amount.val((ctx.volume.val() * ctx.density.val()).toFixed(2));
+            ctx.amount.change();
           }
         });
       },
@@ -189,6 +214,8 @@ my_widget_script =
           equiv: $(".equivalents", tr),
           amount: $(".amount", tr),
           moles: $(".moles", tr),
+          density: $(".density", tr),
+          volume: $(".volume", tr),
           moles1: $('#the_form input.moles[name=moles1_number]'),
           is_initial_row: tr.attr('class') == 'initialRow'
         };
@@ -243,13 +270,20 @@ my_widget_script =
         $('#the_form tbody tr:not(.initialRow) input').prop('disabled', false)
       },
 
+      update_volume: function(ctx) {
+        if (!(ctx.density.val() && ctx.amount.val()))
+          return;
+        ctx.volume.val((ctx.amount.val() / ctx.density.val()).toFixed(2));
+      },
+
       // Change all record when amount or moles of first record is changed
-      update_all_rows: function() {
+      update_all_records: function() {
         $('#the_form tbody tr:not(.initialRow)').each(function() {
           var ctx = my_widget_script.get_context(this);
           if (ctx.fw.val() && ctx.equiv.val()) {
             ctx.moles.val((ctx.moles1.val() * ctx.equiv.val()).toFixed(2));
             ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(2))
+            my_widget_script.update_volume(ctx);
           }
         })
       },
