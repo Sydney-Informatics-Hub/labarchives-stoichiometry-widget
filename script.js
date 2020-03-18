@@ -105,7 +105,7 @@ my_widget_script =
               my_widget_script.enable_all_records()
             } else if (ctx.fw.val() && ctx.amount.val() && ctx.moles.val()) {
               ctx.moles.val((ctx.amount.val() / ctx.fw.val()).toFixed(nFixed))
-              my_widget_script.change_record_value()
+              my_widget_script.update_all_rows()
             }
           } else {
             if (ctx.fw.val()) {
@@ -149,7 +149,7 @@ my_widget_script =
               my_widget_script.enable_all_records()
             } else if (ctx.fw.val() && ctx.amount.val() && ctx.moles.val()) {
               ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(nFixed))
-              my_widget_script.change_record_value()
+              my_widget_script.update_all_rows()
             }
           } else {
             if (ctx.moles1.val()) {
@@ -164,7 +164,6 @@ my_widget_script =
           }
         });
 
-        // Equivalents Field On Change Handler
         $('#the_form input.equivalents').on('change', function() {
           var ctx = my_widget_script.get_context(this);
           /* if fw, equiv exists, calculate amt and moles when they are not filled for rows greater than 1 or
@@ -245,7 +244,7 @@ my_widget_script =
       },
 
       // Change all record when amount or moles of first record is changed
-      change_record_value: function() {
+      update_all_rows: function() {
         $('#the_form tbody tr:not(.initialRow)').each(function() {
           var ctx = my_widget_script.get_context(this);
           if (ctx.fw.val() && ctx.equiv.val()) {
