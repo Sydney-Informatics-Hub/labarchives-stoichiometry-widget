@@ -235,14 +235,10 @@ my_widget_script =
       // Change all record when amount or moles of first record is changed
       change_record_value: function() {
         $('#the_form tbody tr:not(.initialRow)').each(function() {
-          var moles = $('input.moles', this)
-          var amount = $('input.amount', this)
-          var fw = $('input.fw', this)
-          var equiv = $('input.equivalents', this)
-          if (fw.val() && equiv.val()) {
-            var moles1 = $('#the_form input[name=moles1_number]');
-            moles.val((moles1.val() * equiv.val()).toFixed(2));
-            amount.val((moles.val() * fw.val()).toFixed(2))
+          var ctx = my_widget_script.get_context(this);
+          if (ctx.fw.val() && ctx.equiv.val()) {
+            ctx.moles.val((ctx.moles1.val() * ctx.equiv.val()).toFixed(2));
+            ctx.amount.val((ctx.moles.val() * ctx.fw.val()).toFixed(2))
           }
         })
       },
