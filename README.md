@@ -5,6 +5,8 @@ This widget helps the researcher calculate and document amounts used in reaction
 
 The widget can be added to a LabArchive Notebook page.
 
+![Demonstration of the Stoichiometry Table Widget in action](https://raw.githubusercontent.com/Sydney-Informatics-Hub/labarchives-stoichiometry-widget/master/demo.gif)
+
 It was developed by the [Sydney Informatics Hub](https://informatics.sydney.edu.au) from an initial version by [Dr. Samuel Banister](https://sydney.edu.au/science/people/samuel.banister.php).
 
 ## Installation
